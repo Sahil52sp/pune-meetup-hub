@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Box } from "@/components/ui/box";
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
 import HomePage from "./pages/HomePage";
@@ -23,7 +24,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="min-h-screen flex flex-col">
+          <Box className="min-h-screen flex flex-col">
             <Header onSearchChange={setSearchQuery} />
             <main className="flex-1">
               <Routes>
@@ -46,7 +47,7 @@ const App = () => {
               </Routes>
             </main>
             <Footer />
-          </div>
+          </Box>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

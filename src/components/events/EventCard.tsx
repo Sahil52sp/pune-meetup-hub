@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, MapPin, Clock, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Box } from '@/components/ui/box';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Event, EventCategory } from '@/types/event';
 
@@ -42,25 +43,25 @@ export function EventCard({ event }: EventCardProps) {
   return (
     <Card className="group overflow-hidden transition-all duration-300 hover:shadow-hover bg-gradient-card border-border/50">
       <CardHeader className="p-0">
-        <div className="relative overflow-hidden rounded-t-lg">
-          <div className="aspect-video bg-gradient-hero flex items-center justify-center">
-            <div className="text-primary-foreground text-lg font-semibold">
+        <Box className="relative overflow-hidden rounded-t-lg">
+          <Box className="aspect-video bg-gradient-hero flex items-center justify-center">
+            <Box className="text-primary-foreground text-lg font-semibold">
               {event.category} Event
-            </div>
-          </div>
+            </Box>
+          </Box>
           {event.isFeatured && (
-            <div className="absolute top-3 left-3">
+            <Box className="absolute top-3 left-3">
               <Badge variant="default" className="bg-accent text-accent-foreground">
                 Featured
               </Badge>
-            </div>
+            </Box>
           )}
-          <div className="absolute top-3 right-3">
+          <Box className="absolute top-3 right-3">
             <Badge variant={categoryVariantMap[event.category]}>
               {event.category}
             </Badge>
-          </div>
-        </div>
+          </Box>
+        </Box>
       </CardHeader>
       
       <CardContent className="p-6">
@@ -71,22 +72,22 @@ export function EventCard({ event }: EventCardProps) {
           {event.shortDescription}
         </p>
         
-        <div className="space-y-2 text-sm">
-          <div className="flex items-center text-muted-foreground">
+        <Box className="space-y-2 text-sm">
+          <Box className="flex items-center text-muted-foreground">
             <Calendar className="h-4 w-4 mr-2" />
             {formatDate(event.date)}
-          </div>
-          <div className="flex items-center text-muted-foreground">
+          </Box>
+          <Box className="flex items-center text-muted-foreground">
             <Clock className="h-4 w-4 mr-2" />
             {formatTime(event.time)}
-          </div>
-          <div className="flex items-center text-muted-foreground">
+          </Box>
+          <Box className="flex items-center text-muted-foreground">
             <MapPin className="h-4 w-4 mr-2" />
             <span className="truncate">{event.venue.name}</span>
-          </div>
-        </div>
+          </Box>
+        </Box>
 
-        <div className="flex flex-wrap gap-1 mt-3">
+        <Box className="flex flex-wrap gap-1 mt-3">
           {event.tags.slice(0, 3).map((tag) => (
             <Badge key={tag} variant="outline" className="text-xs">
               {tag}
@@ -97,11 +98,11 @@ export function EventCard({ event }: EventCardProps) {
               +{event.tags.length - 3} more
             </Badge>
           )}
-        </div>
+        </Box>
       </CardContent>
       
       <CardFooter className="p-6 pt-0">
-        <div className="flex gap-2 w-full">
+        <Box className="flex gap-2 w-full">
           <Button asChild variant="default" className="flex-1">
             <Link to={`/event/${event.id}`}>
               View Details
@@ -114,7 +115,7 @@ export function EventCard({ event }: EventCardProps) {
               </a>
             </Button>
           )}
-        </div>
+        </Box>
       </CardFooter>
     </Card>
   );
