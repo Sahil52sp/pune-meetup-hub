@@ -23,9 +23,9 @@ export default function HomePage() {
           backgroundRepeat: 'no-repeat',
           position: 'absolute',
           top: -700,
-          right: -630,
+          right: -650,
           width: '75vw',
-          height: '600vh',
+          height: '300vh',
           opacity: 0.8
         }}
       />
@@ -37,7 +37,7 @@ export default function HomePage() {
             Where Every Event Elevates{' '} <br />
             <span className="text-primary">Your Network</span>
           </h1>
-          <p style={{ lineHeight: '1.3' }} className="text-lg text-muted-foreground max-w-2xl text-left">
+          <p style={{ lineHeight: '1.3', fontSize: '20px' }} className="text-lg text-muted-foreground max-w-2xl text-left">
             Skip the small talk. Join meetups that matter and network with purpose at events curated for serious professionals
           </p>
         </Box>
@@ -46,7 +46,7 @@ export default function HomePage() {
       {/* Top Events Section */}
       <Box className="py-20 relative z-10">
         <Box className="container">
-          <h2 className="text-lg font-ndot mb-8">Top Events</h2>
+          <h2  className="text-lg font-ndot mb-8">Top Upcoming Events</h2>
           
           <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {topEvents.map((event) => (

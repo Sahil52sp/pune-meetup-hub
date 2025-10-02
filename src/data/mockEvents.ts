@@ -20,7 +20,7 @@ export const mockEvents: Event[] = [
       website: "https://reactpune.dev"
     },
     externalLink: "https://www.meetup.com/react-pune",
-    image: "/api/placeholder/800/400",
+    image: "https://picsum.photos/800/400?random=1",
     tags: ["React", "Next.js", "JavaScript", "Frontend"],
     isFeatured: true
   },
@@ -43,7 +43,7 @@ export const mockEvents: Event[] = [
       website: "https://puneentrepreneurs.com"
     },
     externalLink: "https://bit.ly/startup-pune-march",
-    image: "/api/placeholder/800/400",
+    image: "https://picsum.photos/800/400?random=2",
     tags: ["Startup", "Networking", "Entrepreneurship", "Investment"],
     isFeatured: true
   },
@@ -64,7 +64,7 @@ export const mockEvents: Event[] = [
       name: "DataScience Pune",
       contact: "workshops@datasciencepune.org"
     },
-    image: "/api/placeholder/800/400",
+    image: "https://picsum.photos/800/400?random=3",
     tags: ["Python", "Data Science", "Machine Learning", "Workshop"],
     isFeatured: false
   },
@@ -86,7 +86,7 @@ export const mockEvents: Event[] = [
       contact: "info@digitalartspune.in",
       website: "https://digitalartspune.in"
     },
-    image: "/api/placeholder/800/400",
+    image: "https://picsum.photos/800/400?random=4",
     tags: ["Digital Art", "NFT", "Blockchain", "Exhibition"],
     isFeatured: true
   },
@@ -108,7 +108,7 @@ export const mockEvents: Event[] = [
       contact: "tournaments@punesports.org"
     },
     externalLink: "https://punesports.org/badminton-championship",
-    image: "/api/placeholder/800/400",
+    image: "https://picsum.photos/800/400?random=1",
     tags: ["Badminton", "Sports", "Corporate", "Tournament"],
     isFeatured: false
   },
@@ -129,7 +129,7 @@ export const mockEvents: Event[] = [
       name: "DevOps Pune",
       contact: "organizers@devopspune.com"
     },
-    image: "/api/placeholder/800/400",
+    image: "https://picsum.photos/800/400?random=1",
     tags: ["DevOps", "Kubernetes", "Cloud", "Production"],
     isFeatured: false
   },
@@ -152,7 +152,7 @@ export const mockEvents: Event[] = [
       website: "https://womenleaderspune.org"
     },
     externalLink: "https://wlsummit2024.com",
-    image: "/api/placeholder/800/400",
+    image: "https://picsum.photos/800/400?random=1",
     tags: ["Leadership", "Women", "Networking", "Career"],
     isFeatured: true
   },
@@ -173,7 +173,7 @@ export const mockEvents: Event[] = [
       name: "Blockchain Academy Pune",
       contact: "learn@blockchainpune.edu"
     },
-    image: "/api/placeholder/800/400",
+    image: "https://picsum.photos/800/400?random=1",
     tags: ["Blockchain", "Cryptocurrency", "Smart Contracts", "Web3"],
     isFeatured: false
   },
@@ -194,7 +194,7 @@ export const mockEvents: Event[] = [
       name: "Pune Photography Club",
       contact: "photowalks@punephotography.com"
     },
-    image: "/api/placeholder/800/400",
+    image: "https://picsum.photos/800/400?random=1",
     tags: ["Photography", "Monsoon", "Photo Walk", "Art"],
     isFeatured: false
   },
@@ -217,7 +217,7 @@ export const mockEvents: Event[] = [
       website: "https://aimlconf2024.com"
     },
     externalLink: "https://aimlconf2024.com/register",
-    image: "/api/placeholder/800/400",
+    image: "https://picsum.photos/800/400?random=1",
     tags: ["AI", "Machine Learning", "Deep Learning", "Conference"],
     isFeatured: true
   }
