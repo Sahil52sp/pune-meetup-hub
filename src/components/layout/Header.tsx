@@ -104,7 +104,7 @@ export function Header() {
           onClick={() => setMobileMenuOpen(false)}
         >
           <Box
-            className="flex flex-col items-center bg-white pt-8 space-y-6"
+            className="flex flex-col items-center bg-white pt-8 pb-8 space-y-6"
             onClick={(e) => e.stopPropagation()}
           >
             <Link

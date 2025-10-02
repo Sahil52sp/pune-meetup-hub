@@ -216,6 +216,7 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
     font-family: "NouvelR", sans-serif;
     letter-spacing: -0.01em;
+    overflow-x: hidden;
   }
 }
 
@@ -357,5 +358,34 @@ All colors MUST be HSL.
 @media (min-width: 640px) {
   .group:hover .plus-icon {
     transform: scale(1.3) !important;
+  }
+}
+
+/* Background image responsive positioning */
+@media (min-width: 1280px) {
+  .bg-image-responsive {
+    position: absolute !important;
+    top: -650px !important;
+    right: -350px !important;
+    width: 80vw !important;
+    height: 210vh !important;
+  }
+}
+
+@media (min-width: 1536px) {
+  .bg-image-responsive {
+    top: -500px !important;
+    right: -400px !important;
+    width: 75vw !important;
+    height: 180vh !important;
+  }
+}
+
+@media (min-width: 1920px) {
+  .bg-image-responsive {
+    top: -800px !important;
+    right: -500px !important;
+    width: 70vw !important;
+    height: 300vh !important;
   }
 }

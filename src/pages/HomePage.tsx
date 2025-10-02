@@ -8,7 +8,18 @@ import bgOrange from '@/assets/bg-orange-1.png';
 
 export default function HomePage() {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const topEvents = mockEvents.slice(0, 6);
+  
+  // Sort events: featured first, then by date, then take first 6
+  const topEvents = mockEvents
+    .sort((a, b) => {
+      // Featured events first
+      if (a.isFeatured && !b.isFeatured) return -1;
+      if (!a.isFeatured && b.isFeatured) return 1;
+      
+      // Then sort by date (earliest first)
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    })
+    .slice(0, 3);
 
   return (
     <>
@@ -16,17 +27,18 @@ export default function HomePage() {
 
       {/* Background Image - Fixed to viewport */}
       <Box 
-        className="hidden md:block fixed top-0 right-0 pointer-events-none z-0"
+        className="hidden xl:block fixed top-0 right-0 pointer-events-none z-0 overflow-hidden bg-image-responsive"
         style={{
           backgroundImage: `url(${bgOrange})`,
-          backgroundSize: 'contain',
+          backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           position: 'absolute',
-          top: -700,
-          right: -650,
-          width: '75vw',
-          height: '300vh',
-          opacity: 0.8
+          top: -650,
+          right: -320,
+          width: '80vw',
+          height: '210vh',
+          opacity: 0.8,
+          maxWidth: '800px'
         }}
       />
       
@@ -45,7 +57,7 @@ export default function HomePage() {
       </Box>
 
       {/* Top Events Section */}
-      <Box className="py-10 sm:py-12 md:py-16 lg:py-20 relative z-10">
+      <Box className="py-10 sm:py-12 md:py-16 lg:py-20 relative z-10 mb-40">
         <Box>
           <h2 className="text-base sm:text-lg md:text-xl font-ndot mb-6 sm:mb-8 text-center sm:text-left">Top Upcoming Events</h2>
           

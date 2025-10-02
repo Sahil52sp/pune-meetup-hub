@@ -190,7 +190,7 @@ export function EventDetailPopup({
                 </Box>
               )}
 
-              {event.externalLink && (
+              {/* {event.externalLink && (
                 <Box className="mt-6 sm:mt-8">
                   <Button asChild className="w-full md:w-auto text-sm sm:text-base">
                     <a
@@ -202,7 +202,7 @@ export function EventDetailPopup({
                     </a>
                   </Button>
                 </Box>
-              )}
+              )} */}
             </Box>
           </Box>
         </Box>
