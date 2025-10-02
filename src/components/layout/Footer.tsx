@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Mail, Globe, Github, Twitter, Instagram } from 'lucide-react';
 import { categories } from '@/data/mockEvents';
-
+import logo from '@/Logo.svg';
 export function Footer() {
   return (
     <footer className="bg-muted/30 border-t">
@@ -9,18 +9,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary">
-                <MapPin className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                MeetupPune
-              </span>
-            </div>
-            <p className="text-muted-foreground text-sm max-w-xs">
+            <img src={logo} alt="Pune Meetup" className="w-36 sm:w-40 md:w-44 lg:w-[180px]" />
+            {/* <p className="text-muted-foreground text-sm max-w-xs">
               Discover and connect with Pune's vibrant meetup and event community. Join us to learn, network, and grow together.
-            </p>
-            <div className="flex space-x-3">
+            </p> */}
+            {/* <div className="flex space-x-3">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Github className="h-5 w-5" />
               </a>
@@ -30,10 +23,10 @@ export function Footer() {
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
-            </div>
+            </div> */}
           </div>
 
-          {/* Categories */}
+          {/* Categories
           <div>
             <h3 className="font-semibold mb-4">Categories</h3>
             <ul className="space-y-2 text-sm">
@@ -48,9 +41,9 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
 
-          {/* Quick Links */}
+          {/* Quick Links
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
@@ -80,9 +73,9 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </div> */}
 
-          {/* Contact */}
+          {/* Contact
           <div>
             <h3 className="font-semibold mb-4">Contact</h3>
             <div className="space-y-2 text-sm">
@@ -97,7 +90,7 @@ export function Footer() {
                 <span>Pune, Maharashtra, India</span>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">

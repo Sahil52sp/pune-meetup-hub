@@ -12,11 +12,11 @@ export default function HomePage() {
 
   return (
     <>
-      <Box style={{ margin: "20px 160px" }} className="min-h-screen bg-background relative">
+      <Box className="min-h-screen bg-background relative px-4 sm:px-8 md:mx-16 lg:mx-24 xl:mx-40">
 
       {/* Background Image - Fixed to viewport */}
       <Box 
-        className="fixed top-0 right-0 pointer-events-none z-0"
+        className="hidden md:block fixed top-0 right-0 pointer-events-none z-0"
         style={{
           backgroundImage: `url(${bgOrange})`,
           backgroundSize: 'contain',
@@ -31,24 +31,25 @@ export default function HomePage() {
       />
       
       {/* Hero Section */}
-      <Box className="relative overflow-hidden py-28 z-10">
-        <Box className=" max-w-4xl text-left">
-          <h1 className="text-5xl text-left md:text-6xl nouvel-bold mb-6 text-foreground">
-            Where Every Event Elevates{' '} <br />
+      <Box className="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-28 z-10">
+        <Box className="max-w-4xl text-center sm:text-left mx-auto sm:mx-0">
+          <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl nouvel-bold mb-4 sm:mb-6 text-foreground leading-tight">
+            Where Every Event Elevates{' '}
+            <br/>
             <span className="text-primary">Your Network</span>
           </h1>
-          <p style={{ lineHeight: '1.3', fontSize: '20px' }} className="text-lg text-muted-foreground max-w-2xl text-left">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl text-center sm:text-left leading-relaxed mx-auto sm:mx-0">
             Skip the small talk. Join meetups that matter and network with purpose at events curated for serious professionals
           </p>
         </Box>
       </Box>
 
       {/* Top Events Section */}
-      <Box className="py-20 relative z-10">
-        <Box className="container">
-          <h2  className="text-lg font-ndot mb-8">Top Upcoming Events</h2>
+      <Box className="py-10 sm:py-12 md:py-16 lg:py-20 relative z-10">
+        <Box>
+          <h2 className="text-base sm:text-lg md:text-xl font-ndot mb-6 sm:mb-8 text-center sm:text-left">Top Upcoming Events</h2>
           
-          <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Box className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-6">
             {topEvents.map((event) => (
               <EventCard 
                 key={event.id} 

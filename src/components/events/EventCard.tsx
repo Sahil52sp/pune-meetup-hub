@@ -50,19 +50,18 @@ export function EventCard({ event, onClick }: EventCardProps) {
 
   return (
     <Card
-      className=" card mb-8 group overflow-visible transition-all duration-300 backdrop-blur-lg bg-white/60 cursor-pointer hover:bg-white/70 hover:scale-[1.01] relative"
+      className="card mb-6 sm:mb-8 group overflow-visible transition-all duration-300 backdrop-blur-lg bg-white/60 cursor-pointer hover:bg-white/70 hover:scale-[1.01] relative"
       onClick={onClick}
     >
       {/* Date-Time Tag - Inside card but extending outside */}
       <Box
-        className="datetime absolute flex font-ndot flex-row items-center justify-center transition-all duration-300 ease-out"
+        className="datetime absolute flex font-ndot flex-row items-center justify-center transition-all duration-300 ease-out text-xs sm:text-sm"
         style={{
-          bottom: "-18px",
-          left: "26px",
+          bottom: "-14px",
+          left: "16px",
           zIndex: "100",
-          fontSize: "13px",
-          borderRadius: "10px",
-          padding: "6px 10px",
+          borderRadius: "8px",
+          padding: "4px 8px",
           background:
             "linear-gradient(70deg,rgba(255, 255, 255, 0.54) 0%,rgba(255, 221, 198, 0.34) 33%,rgba(255, 221, 198, 0.54) 61%,rgba(255, 255, 255, 0.66) 91%)",
           backdropFilter: "blur(10px)",
@@ -71,20 +70,20 @@ export function EventCard({ event, onClick }: EventCardProps) {
           border: "2px solid rgb(255, 255, 255)",
         }}
       >
-        <Box className=" font-medium text-foreground">
+        <Box className="font-medium text-foreground whitespace-nowrap">
           {formatDate(event.date)}
         </Box>
         <Box
-          className="mx-2"
+          className="mx-1 sm:mx-2"
           style={{
             width: "1px",
-            height: "14px",
+            height: "12px",
             opacity: "0.5",
-            backgroundColor: "#6d6d6d", // Tailwind gray-200
+            backgroundColor: "#6d6d6d",
             borderRadius: "1px",
           }}
         />
-        <Box className="text-xs text-muted-foreground">
+        <Box className="text-xs text-muted-foreground whitespace-nowrap">
           {formatTime(event.time)}
         </Box>
       </Box>
@@ -119,22 +118,22 @@ export function EventCard({ event, onClick }: EventCardProps) {
         </Box>
       </CardHeader>
 
-      <CardContent className="p-4">
-        <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
+      <CardContent className="p-3 sm:p-4">
+        <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
           {event.title}
         </h3>
-        <p className="text-muted-foreground text-sm line-clamp-3">
+        <p className="text-muted-foreground text-xs sm:text-sm line-clamp-3">
           {event.shortDescription}
         </p>
       </CardContent>
 
-      <CardFooter className="p-6 pt-0 pb-2 flex justify-end items-center">
+      <CardFooter className="p-2 sm:p-2 pt-0 pb-2 flex justify-end items-center">
         <Button
           variant="outline"
           size="icon"
-          className="rounded-full plus-icon ease-out transition-all duration-300"
+          className="rounded-full plus-icon ease-out transition-all duration-300 h-8 w-8 sm:h-10 sm:w-10"
         >
-          <Plus className="h-4 w-4" />
+          <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
         </Button>
       </CardFooter>
     </Card>
