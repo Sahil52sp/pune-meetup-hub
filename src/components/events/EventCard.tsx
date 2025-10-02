@@ -50,7 +50,7 @@ export function EventCard({ event, onClick }: EventCardProps) {
 
   return (
     <Card
-      className=" card group overflow-visible transition-all duration-300 backdrop-blur-lg bg-white/60 cursor-pointer hover:bg-white/70 hover:scale-[1.01] relative"
+      className=" card mb-8 group overflow-visible transition-all duration-300 backdrop-blur-lg bg-white/60 cursor-pointer hover:bg-white/70 hover:scale-[1.01] relative"
       onClick={onClick}
     >
       {/* Date-Time Tag - Inside card but extending outside */}

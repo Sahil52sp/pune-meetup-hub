@@ -73,7 +73,7 @@ export function EventDetailPopup({
       />
 
       {/* Modal Content */}
-      <Box className="relative backdrop-blur-lg bg-white/60 border-2 border-primary-glow/50 rounded-lg shadow-lg max-w-6xl w-full mx-4 max-h-[90vh] overflow-visible">
+      <Box className="relative backdrop-blur-lg bg-white/60 border-2 border-primary-glow/50 rounded-lg shadow-lg max-w-6xl w-full mx-4 max-h-[92vh] overflow-visible">
         {/* Close Button */}
         <Button
           variant="ghost"
@@ -86,8 +86,6 @@ export function EventDetailPopup({
             height: "32px",
             width: "32px",
             border: "1px solid rgba(255, 107, 53, 0.52)",
-          
-
           }}
           onClick={onClose}
         >
@@ -100,6 +98,7 @@ export function EventDetailPopup({
             style={{
               background:
                 "linear-gradient(40deg,rgba(255, 182, 134, 0.1) 0%,rgba(255, 182, 134, 0.45) 60%,rgb(255, 255, 255) 100%) padding-box,linear-gradient(70deg,rgba(255, 255, 255, 0.54) 0%,rgba(255, 221, 198, 0.34) 33%,rgba(255, 221, 198, 0.54) 61%,rgba(255, 255, 255, 0.66) 91%) border-box",
+              borderRadius: "10px 10px 0 10px",
             }}
             className="md:w-3/7 bg-muted p-8 flex-shrink-0"
           >
@@ -160,7 +159,7 @@ export function EventDetailPopup({
           </Box>
 
           {/* Right Side - Event Description - Scrollable */}
-          <Box className="md:w-4/7 p-10 overflow-y-auto">
+          <Box className="md:w-4/7 p-10 overflow-y-auto ">
             <h2 className="text-3xl font-bold mb-6">{event.title}</h2>
 
             <Box className="prose prose-sm max-w-none">

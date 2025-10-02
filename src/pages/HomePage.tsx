@@ -8,7 +8,7 @@ import bgOrange from '@/assets/bg-orange-1.png';
 
 export default function HomePage() {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const topEvents = mockEvents.slice(0, 3);
+  const topEvents = mockEvents.slice(0, 6);
 
   return (
     <>
