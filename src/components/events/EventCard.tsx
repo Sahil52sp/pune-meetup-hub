@@ -41,7 +41,7 @@ export function EventCard({ event, onClick }: EventCardProps) {
   };
 
   return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-hover bg-gradient-card border-border/50 cursor-pointer" onClick={onClick}>
+    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-hover backdrop-blur-lg bg-white/60 border border-white/40 cursor-pointer hover:bg-white/70 hover:scale-[1.02]" onClick={onClick}>
       <CardHeader className="p-0">
         <Box className="relative overflow-hidden rounded-t-lg">
           <Box className="aspect-video bg-gradient-hero flex items-center justify-center">
