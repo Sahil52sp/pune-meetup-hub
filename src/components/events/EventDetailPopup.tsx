@@ -42,7 +42,7 @@ export function EventDetailPopup({ event, isOpen, onClose }: EventDetailPopupPro
       />
       
       {/* Modal Content */}
-      <Box className="relative bg-background rounded-lg shadow-lg max-w-5xl w-full mx-4 max-h-[90vh] overflow-hidden">
+      <Box className="relative backdrop-blur-lg bg-white/80 border border-white/40 rounded-lg shadow-lg max-w-5xl w-full mx-4 max-h-[90vh] overflow-hidden">
         {/* Close Button */}
         <Button
           variant="ghost"
