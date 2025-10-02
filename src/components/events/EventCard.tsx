@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { Calendar, MapPin, Clock, ExternalLink } from 'lucide-react';
+import { Calendar, MapPin, Clock, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Box } from '@/components/ui/box';
@@ -8,6 +7,7 @@ import { Event, EventCategory } from '@/types/event';
 
 interface EventCardProps {
   event: Event;
+  onClick?: () => void;
 }
 
 const categoryVariantMap: Record<EventCategory, "tech" | "business" | "arts" | "sports" | "networking" | "workshop"> = {
@@ -19,7 +19,7 @@ const categoryVariantMap: Record<EventCategory, "tech" | "business" | "arts" | "
   'Workshop': 'workshop'
 };
 
-export function EventCard({ event }: EventCardProps) {
+export function EventCard({ event, onClick }: EventCardProps) {
   const formatDate = (date: string) => {
     const eventDate = new Date(date);
     return eventDate.toLocaleDateString('en-US', {
@@ -41,7 +41,7 @@ export function EventCard({ event }: EventCardProps) {
   };
 
   return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-hover bg-gradient-card border-border/50">
+    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-hover bg-gradient-card border-border/50 cursor-pointer" onClick={onClick}>
       <CardHeader className="p-0">
         <Box className="relative overflow-hidden rounded-t-lg">
           <Box className="aspect-video bg-gradient-hero flex items-center justify-center">
@@ -81,41 +81,16 @@ export function EventCard({ event }: EventCardProps) {
             <Clock className="h-4 w-4 mr-2" />
             {formatTime(event.time)}
           </Box>
-          <Box className="flex items-center text-muted-foreground">
-            <MapPin className="h-4 w-4 mr-2" />
-            <span className="truncate">{event.venue.name}</span>
-          </Box>
-        </Box>
-
-        <Box className="flex flex-wrap gap-1 mt-3">
-          {event.tags.slice(0, 3).map((tag) => (
-            <Badge key={tag} variant="outline" className="text-xs">
-              {tag}
-            </Badge>
-          ))}
-          {event.tags.length > 3 && (
-            <Badge variant="outline" className="text-xs">
-              +{event.tags.length - 3} more
-            </Badge>
-          )}
         </Box>
       </CardContent>
       
-      <CardFooter className="p-6 pt-0">
-        <Box className="flex gap-2 w-full">
-          <Button asChild variant="default" className="flex-1">
-            <Link to={`/event/${event.id}`}>
-              View Details
-            </Link>
-          </Button>
-          {event.externalLink && (
-            <Button variant="outline" size="icon" asChild>
-              <a href={event.externalLink} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-4 w-4" />
-              </a>
-            </Button>
-          )}
+      <CardFooter className="p-6 pt-0 flex justify-between items-center">
+        <Box className="text-sm text-muted-foreground">
+          {formatDate(event.date)} | {formatTime(event.time)}
         </Box>
+        <Button variant="outline" size="icon" className="rounded-full">
+          <Plus className="h-4 w-4" />
+        </Button>
       </CardFooter>
     </Card>
   );
