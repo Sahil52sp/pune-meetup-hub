@@ -2,6 +2,87 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Font imports */
+@font-face {
+  font-family: 'NouvelR';
+  src: url('./fonts/NouvelRRegular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NouvelR';
+  src: url('./fonts/NouvelRLight.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NouvelR';
+  src: url('./fonts/NouvelRSemibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NouvelR';
+  src: url('./fonts/NouvelRBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./fonts/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./fonts/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./fonts/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ndot';
+  src: url('./fonts/ndot-47-inspired-by-nothing.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
@@ -9,7 +90,7 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Light peach theme as default */
-    --background: #FFF5F0;
+    --background: #ffffff;
     --foreground: #1A1A1A;
 
     --card: #FFFFFF;
@@ -127,5 +208,94 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'NouvelR', sans-serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  /* Font family utilities */
+  .font-nouvel {
+    font-family: 'NouvelR', sans-serif;
+  }
+  
+  .font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .font-ndot {
+    font-family: 'Ndot', sans-serif;
+  }
+  
+  /* Poppins weight utilities */
+  .poppins-light {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+  }
+  
+  .poppins-reg {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+  }
+  
+  .poppins-med {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+  }
+  
+  .poppins-sb {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+  }
+  
+  .poppins-bold {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+  }
+  
+  /* NouvelR weight utilities */
+  .nouvel-light {
+    font-family: 'NouvelR', sans-serif;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+  
+  .nouvel-reg {
+    font-family: 'NouvelR', sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  
+  .nouvel-sb {
+    font-family: 'NouvelR', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.05em;
+  }
+  
+  .nouvel-bold {
+    font-family: 'NouvelR', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  
+  /* Navigation active state styles */
+  .nav-link-active {
+    color: #1A1A1A !important;
+    font-weight: 500 !important;
+    border: 1px solid #FF6B35 !important;
+    padding: 6px 16px !important;
+    border-radius: 20px !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .nav-link-inactive {
+    color: hsl(var(--foreground)) !important;
+    transition: all 0.2s ease !important;
+    padding: 6px 16px !important;
+    border-radius: 20px !important;
+  }
+  
+  .nav-link-inactive:hover {
+    background: #FFF5F0 !important;
   }
 }
