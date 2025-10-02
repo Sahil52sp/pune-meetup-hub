@@ -8,46 +8,46 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Dark theme as default */
-    --background: #0f172a;
-    --foreground: #f8fafc;
+    /* Light peach theme as default */
+    --background: #FFF5F0;
+    --foreground: #1A1A1A;
 
-    --card: #0f172a;
-    --card-foreground: #f8fafc;
+    --card: #FFFFFF;
+    --card-foreground: #1A1A1A;
 
-    --popover: #0f172a;
-    --popover-foreground: #f8fafc;
+    --popover: #FFFFFF;
+    --popover-foreground: #1A1A1A;
 
-    --primary: #6366f1;
-    --primary-foreground: #ffffff;
-    --primary-glow: #818cf8;
+    --primary: #FF6B35;
+    --primary-foreground: #FFFFFF;
+    --primary-glow: #FF8C61;
 
-    --secondary: #1e293b;
-    --secondary-foreground: #f8fafc;
+    --secondary: #F5F5F5;
+    --secondary-foreground: #1A1A1A;
 
-    --muted: #1e293b;
-    --muted-foreground: #94a3b8;
+    --muted: #F0E6E0;
+    --muted-foreground: #6B6B6B;
 
-    --accent: #a855f7;
-    --accent-foreground: #ffffff;
+    --accent: #FF6B35;
+    --accent-foreground: #FFFFFF;
 
-    --destructive: #ef4444;
-    --destructive-foreground: #f8fafc;
+    --destructive: #EF4444;
+    --destructive-foreground: #FFFFFF;
 
-    --border: #334155;
-    --input: #334155;
-    --ring: #6366f1;
+    --border: #E5D5CC;
+    --input: #FFFFFF;
+    --ring: #FF6B35;
 
     --radius: 0.75rem;
 
     /* Custom design system tokens */
-    --gradient-primary: linear-gradient(135deg, #6366f1, #a855f7);
-    --gradient-hero: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #c084fc 100%);
-    --gradient-card: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+    --gradient-primary: linear-gradient(135deg, #FF6B35, #FF8C61);
+    --gradient-hero: linear-gradient(135deg, #FFE5D9 0%, #FFF5F0 100%);
+    --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #FFF9F7 100%);
     
-    --shadow-elegant: 0 10px 30px -10px rgba(99, 102, 241, 0.3);
-    --shadow-card: 0 4px 20px -4px rgba(99, 102, 241, 0.2);
-    --shadow-hover: 0 8px 30px -6px rgba(99, 102, 241, 0.4);
+    --shadow-elegant: 0 10px 30px -10px rgba(255, 107, 53, 0.3);
+    --shadow-card: 0 4px 20px -4px rgba(255, 107, 53, 0.1);
+    --shadow-hover: 0 8px 30px -6px rgba(255, 107, 53, 0.2);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -60,14 +60,14 @@ All colors MUST be HSL.
     --networking-color: #06b6d4;
     --workshop-color: #8b5cf6;
 
-    --sidebar-background: #1e293b;
-    --sidebar-foreground: #f8fafc;
-    --sidebar-primary: #6366f1;
-    --sidebar-primary-foreground: #ffffff;
-    --sidebar-accent: #334155;
-    --sidebar-accent-foreground: #f8fafc;
-    --sidebar-border: #334155;
-    --sidebar-ring: #6366f1;
+    --sidebar-background: #FFFFFF;
+    --sidebar-foreground: #1A1A1A;
+    --sidebar-primary: #FF6B35;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #F5F5F5;
+    --sidebar-accent-foreground: #1A1A1A;
+    --sidebar-border: #E5D5CC;
+    --sidebar-ring: #FF6B35;
   }
 
   .light {

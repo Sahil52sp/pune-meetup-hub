@@ -12,9 +12,9 @@ export default function HomePage() {
   return (
     <Box className="min-h-screen bg-background">
       {/* Hero Section */}
-      <Box className="relative overflow-hidden py-20 px-4">
+      <Box className="relative overflow-hidden py-20 px-4 bg-gradient-hero">
         <Box className="container max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
             Where Every Event Elevates{' '}
             <span className="text-primary">Your Network</span>
           </h1>
