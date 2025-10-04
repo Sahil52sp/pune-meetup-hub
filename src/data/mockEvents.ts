@@ -113,39 +113,37 @@ Shobhit Verma - “You Can’t Improve What You Can’t Observe: Observability L
   },
   {
     id: "digital-art-exhibition-wakad",
-    title: "Building AI Agents using Google ADK",
-    description: `Brief Details about topic
+    title: "AI Career & Community Day",
+    description: `Dear Community Members,
 
-    Participants will get intuition on internals of AI Agents.
-    Introduction to Google ADK and its features.
-    Understanding how Google ADK works internally.
-    How to plan and start building multi agent set up in ADK.
-    Demo
-    Q&A
-    Presenter: Anukool Chaturvedi
-    
-    He is working as a Sr. Machine Learning Engineer at Avalara, he loves to explore, learn, and build solutions incorporating AI, recently he has been building distributed Multi Agent solutions for many use cases, experimenting with various frameworks like LangGraph, Google ADK, CrewAI etc. He also write technical blogs. In his free time, he loves reading books on biographies, businesses and history.
-    
-    He can be reached at -
-    Linkedin: https://in.linkedin.com/in/anukool-chaturvedi
+Join us on 11th October 2025 at MCCIA (SB Road) Pune for a bespoke gathering of AI/ML professionals, DevOps engineers, MLOps specialists, and Cloud practitioners.
 
-    Note : The speakers' views are their own and do not represent Avalara. This session is intended for educational purposes only and does not constitute specific advice or endorsement from Avalara or its organiser ! Additionally This meet-up event does not include any Avalara specific contents.  `,
-    shortDescription: "Join us for an exciting session on Building AI Agents using Google ADK! Get an inside look at how AI agents work, explore the features of Google ADK,",
+What’s in it for you?
+
+Attend tech talks & meetups with industry leaders and tech communities leaders
+⁠Explore career pathways across AI/ML, MLOps, DevOps & Cloud
+⁠Learn, network, and connect with peers shaping Pune’s AI ecosystem
+Registration is mandatory
+
+📍 MCCIA, SB Road, Pune - 11th October 2025 | 11 AM – 4 PM
+Register now and secure your spot!
+https://www.puneaijobs.com/campaign-landing`,
+    shortDescription: "Join us on 11th October 2025 at MCCIA (SB Road) Pune for a bespoke gathering of AI/ML professionals, DevOps engineers, MLOps specialists, and Cloud practitioners.",
     category: "Arts",
-    date: "2025-10-4",
+    date: "2025-10-11",
     time: "11:00",
     venue: {
-      name: "Avalara Technologies Private Limited",
-      address: "Tower A, Survey No, CTS, Floor 6, Panchshil Business Park, 206/2, Viman Nagar, Pune, Maharashtra 411014 · Pune",
+      name: "MCCIA Trade Tower",
+      address: "Shekhar Natu Training Hall, No. 3 505 A Wing, 5th floor,, Senapati Bapat Road · Pune",
       googleMapsLink: ""
     },
     organizer: {
-      name: "By Pune Tech Talks",
-      contact: "info@digitalartspune.in",
+      name: "By Talent Quotient Partners",
+      contact: "info@puneaijobs.com",
       website: ""
     },
     externalLink: "",
-    image: "/src/assets/Thumbnails/google.png",
+    image: "/src/assets/Thumbnails/talentquotient.png",
     tags: [],
     isFeatured: true
   },
