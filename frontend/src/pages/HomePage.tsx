@@ -3,6 +3,7 @@ import { Box } from '@/components/ui/box';
 import { EventCard } from '@/components/events/EventCard';
 import { EventDetailPopup } from '@/components/events/EventDetailPopup';
 import { WelcomeBanner } from '@/components/onboarding/WelcomeBanner';
+import { QuickActions } from '@/components/onboarding/QuickActions';
 import { mockEvents } from '@/data/mockEvents';
 import { Event } from '@/types/event';
 import bgOrange from '@/assets/bg-orange-1.png';
