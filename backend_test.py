@@ -267,12 +267,22 @@ class APITester:
         """Test CORS headers are present"""
         print("🔍 Testing API - CORS headers")
         
-        response = await self.make_request("GET", "/")
+        # Make an OPTIONS request to test CORS preflight
+        response = await self.make_request("OPTIONS", "/")
         
         headers = response.get("headers", {})
         has_cors = "access-control-allow-origin" in [h.lower() for h in headers.keys()]
         
+        # If OPTIONS doesn't work, try GET
+        if not has_cors:
+            response = await self.make_request("GET", "/")
+            headers = response.get("headers", {})
+            has_cors = "access-control-allow-origin" in [h.lower() for h in headers.keys()]
+        
         details = f"Status: {response['status']}, CORS headers present: {has_cors}"
+        if has_cors:
+            cors_origin = next((v for k, v in headers.items() if k.lower() == "access-control-allow-origin"), "N/A")
+            details += f", Origin: {cors_origin}"
         
         self.print_test_result("CORS headers present", has_cors, details)
         return has_cors
