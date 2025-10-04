@@ -11,7 +11,7 @@ export const WelcomeBanner: React.FC = () => {
   const [dismissed, setDismissed] = useState(false);
   const { isAuthenticated, user } = useAuth();
 
-  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL;
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || import.meta.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     if (!isAuthenticated) return;
