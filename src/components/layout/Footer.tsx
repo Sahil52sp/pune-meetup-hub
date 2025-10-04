@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Mail, Globe, Github, Twitter, Instagram } from 'lucide-react';
-import { categories } from '@/data/mockEvents';
 import logo from '@/Logo.svg';
 export function Footer() {
   return (
