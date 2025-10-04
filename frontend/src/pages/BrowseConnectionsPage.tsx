@@ -43,7 +43,7 @@ export default function BrowseConnectionsPage() {
   const [showFilters, setShowFilters] = useState(false);
   const { toast } = useToast();
 
-  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     loadProfiles();
