@@ -11,7 +11,7 @@ export const WelcomeBanner: React.FC = () => {
   const [dismissed, setDismissed] = useState(false);
   const { isAuthenticated, user } = useAuth();
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || import.meta.env.REACT_APP_BACKEND_URL || 'https://meetup-network-1.preview.emergentagent.com';
+  const backendUrl = 'https://meetup-network-1.preview.emergentagent.com';
 
   useEffect(() => {
     if (!isAuthenticated) return;
