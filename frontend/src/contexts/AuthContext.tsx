@@ -40,15 +40,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Check if user is authenticated on app load
   useEffect(() => {
-    checkAuthStatus();
-    
-    // Handle session_id from URL fragment
-    const handleSessionId = async () => {
+    const initializeAuth = async () => {
+      // Handle session_id from URL fragment FIRST
       const fragment = window.location.hash.substring(1);
       const params = new URLSearchParams(fragment);
       const sessionId = params.get('session_id');
       
       if (sessionId) {
+        console.log('Processing session_id:', sessionId);
         setIsLoading(true);
         try {
           const response = await fetch(`${backendUrl}/api/auth/session`, {
@@ -60,23 +59,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             credentials: 'include'
           });
 
+          console.log('Session response status:', response.status);
           if (response.ok) {
             const data = await response.json();
+            console.log('Session data:', data);
             if (data.success) {
               setUser(data.data.user);
+              console.log('User set:', data.data.user);
               // Clean URL fragment
               window.history.replaceState({}, document.title, window.location.pathname);
+              setIsLoading(false);
+              return; // Don't check auth status if we just processed session
             }
+          } else {
+            console.error('Session processing failed:', response.status);
           }
         } catch (error) {
           console.error('Error processing session:', error);
-        } finally {
-          setIsLoading(false);
         }
+        setIsLoading(false);
+      } else {
+        // Only check existing auth status if no session_id
+        checkAuthStatus();
       }
     };
 
-    handleSessionId();
+    initializeAuth();
   }, [backendUrl]);
 
   const checkAuthStatus = async () => {
