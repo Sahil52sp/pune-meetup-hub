@@ -2,7 +2,6 @@ import { Event } from '@/types/event';
 import grafanaImg from '@/assets/Thumbnails/grafana.png';
 import elasticImg from '@/assets/Thumbnails/elastic.png';
 import talentquotientImg from '@/assets/Thumbnails/talentquotient.png';
-import googleImg from '@/assets/Thumbnails/google.png';
 
 export const mockEvents: Event[] = [
   {
