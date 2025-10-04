@@ -213,6 +213,9 @@ frontend:
         - working: true
         - agent: "testing"
         - comment: "Authentication Context working correctly. Fixed process.env issue in Vite. Google OAuth integration properly redirects to auth.emergentagent.com. Session management implemented. Protected routes show proper authentication prompts. Auth status check works (returns expected 401 for unauthenticated users)."
+        - working: true
+        - agent: "testing"
+        - comment: "CRITICAL FIX APPLIED: Fixed environment variable issue where REACT_APP_BACKEND_URL was undefined in Vite. Added VITE_BACKEND_URL support and updated AuthContext to use correct environment variable. Authentication flow now working: ✅ Sign In button visible ✅ OAuth redirect to auth.emergentagent.com working ✅ Protected routes show authentication prompts ✅ API calls return proper 401 responses ✅ Session fragment handling implemented (cleans URL only on successful auth). All authentication functionality confirmed working."
 
   - task: "Profile Management UI"
     implemented: true
