@@ -196,6 +196,15 @@ export function Header() {
             {isAuthenticated ? (
               <>
                 <Link
+                  to="/profile"
+                  onClick={handleLinkClick}
+                  className={`text-lg poppins-reg ${
+                    isActive("/profile") ? "nav-link-active" : "nav-link-inactive"
+                  }`}
+                >
+                  My Profile
+                </Link>
+                <Link
                   to="/browse"
                   onClick={handleLinkClick}
                   className={`text-lg poppins-reg ${
@@ -221,15 +230,6 @@ export function Header() {
                   }`}
                 >
                   Messages
-                </Link>
-                <Link
-                  to="/profile"
-                  onClick={handleLinkClick}
-                  className={`text-lg poppins-reg ${
-                    isActive("/profile") ? "nav-link-active" : "nav-link-inactive"
-                  }`}
-                >
-                  Profile
                 </Link>
                 
                 <div className="pt-4 border-t border-gray-200 w-full text-center">
