@@ -73,7 +73,7 @@ export function EventDetailPopup({
       />
 
       {/* Modal Content */}
-      <Box className="relative backdrop-blur-lg bg-white/60 border-2 border-primary-glow/50 rounded-lg shadow-lg max-w-6xl w-full mx-2 sm:mx-4 max-h-[92vh] sm:max-h-[90vh] overflow-visible">
+      <Box className="relative backdrop-blur-lg bg-white/60 border-2 border-primary-glow/50 rounded-lg shadow-lg max-w-6xl w-full mx-2 sm:mx-4 max-h-[75vh] sm:max-h-[90vh] overflow-visible">
         {/* Close Button */}
         <Button
           variant="ghost"
@@ -92,7 +92,7 @@ export function EventDetailPopup({
           <X className="h-3 w-3 sm:h-4 sm:w-4" />
         </Button>
 
-        <Box className="flex flex-col md:flex-row max-h-[88vh] sm:max-h-[90vh] overflow-y-auto md:overflow-hidden">
+        <Box className="flex flex-col md:flex-row max-h-[70vh] sm:max-h-[90vh] overflow-y-auto md:overflow-hidden">
           {/* Left Side - Event Image and Basic Info - Fixed */}
           <Box
             style={{
