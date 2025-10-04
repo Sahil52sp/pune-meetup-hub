@@ -41,7 +41,7 @@ export default function ProfilePage() {
   const { user } = useAuth();
   const { toast } = useToast();
 
-  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     loadProfile();
