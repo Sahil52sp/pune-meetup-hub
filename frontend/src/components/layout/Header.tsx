@@ -68,6 +68,14 @@ export function Header() {
           {isAuthenticated && (
             <>
               <Link
+                to="/profile"
+                className={`text-sm poppins-reg ${
+                  isActive("/profile") ? "nav-link-active" : "nav-link-inactive"
+                }`}
+              >
+                My Profile
+              </Link>
+              <Link
                 to="/browse"
                 className={`text-sm poppins-reg ${
                   isActive("/browse") ? "nav-link-active" : "nav-link-inactive"
