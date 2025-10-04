@@ -299,15 +299,9 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus:
-    - "Authentication Context with Google OAuth"
-    - "Profile Management UI"
-    - "Browse Connections UI"
-    - "Connection Management UI"
-    - "Built-in Messaging Interface"
-    - "Navigation and Header Updates"
+  current_focus: []
   stuck_tasks: []
-  test_all: true
+  test_all: false
   test_priority: "high_first"
 
 agent_communication:
