@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || import.meta.env.REACT_APP_BACKEND_URL || 'https://meetup-network-1.preview.emergentagent.com';
+  const backendUrl = 'https://meetup-network-1.preview.emergentagent.com';
 
   // Check if user is authenticated on app load
   useEffect(() => {
