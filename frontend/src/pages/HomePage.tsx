@@ -63,6 +63,11 @@ export default function HomePage() {
         <WelcomeBanner />
       </Box>
 
+      {/* Quick Actions for Authenticated Users */}
+      <Box className="relative z-10 mb-8">
+        <QuickActions />
+      </Box>
+
       {/* Top Events Section */}
       <Box className="py-10 sm:py-12 md:py-16 lg:py-20 relative z-10 mb-40">
         <Box>
