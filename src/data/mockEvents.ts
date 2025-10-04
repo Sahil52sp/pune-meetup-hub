@@ -1,4 +1,8 @@
 import { Event } from '@/types/event';
+import grafanaImg from '@/assets/Thumbnails/grafana.png';
+import elasticImg from '@/assets/Thumbnails/elastic.png';
+import talentquotientImg from '@/assets/Thumbnails/talentquotient.png';
+import googleImg from '@/assets/Thumbnails/google.png';
 
 export const mockEvents: Event[] = [
   {
@@ -45,7 +49,7 @@ Submit your lightning talk here.`,
       website: ""
     },
     externalLink: "https://www.meetup.com/react-pune",
-    image: "/src/assets/Thumbnails/grafana.png",
+    image: grafanaImg,
     tags: [],
     isFeatured: true
   },
@@ -84,7 +88,7 @@ Shobhit Verma - “You Can’t Improve What You Can’t Observe: Observability L
       website: ""
     },
     externalLink: "https://bit.ly/startup-pune-march",
-    image: "/src/assets/Thumbnails/elastic.png",
+    image: elasticImg,
     tags: [],
     isFeatured: true
   },
@@ -143,7 +147,7 @@ https://www.puneaijobs.com/campaign-landing`,
       website: ""
     },
     externalLink: "",
-    image: "/src/assets/Thumbnails/talentquotient.png",
+    image: talentquotientImg,
     tags: [],
     isFeatured: true
   },
