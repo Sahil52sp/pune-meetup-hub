@@ -57,6 +57,11 @@ export default function HomePage() {
         </Box>
       </Box>
 
+      {/* Welcome Banner for New Users */}
+      <Box className="relative z-10 mb-8">
+        <WelcomeBanner />
+      </Box>
+
       {/* Top Events Section */}
       <Box className="py-10 sm:py-12 md:py-16 lg:py-20 relative z-10 mb-40">
         <Box>
