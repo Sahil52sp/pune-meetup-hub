@@ -88,19 +88,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [backendUrl]);
 
   const checkAuthStatus = async () => {
+    console.log('Checking auth status...');
     try {
       const response = await fetch(`${backendUrl}/api/auth/me`, {
         credentials: 'include'
       });
 
+      console.log('Auth status response:', response.status);
       if (response.ok) {
         const data = await response.json();
+        console.log('Auth status data:', data);
         if (data.success) {
           setUser(data.data.user);
+          console.log('User authenticated:', data.data.user);
         }
+      } else {
+        console.log('Not authenticated, status:', response.status);
+        setUser(null);
       }
     } catch (error) {
       console.error('Error checking auth status:', error);
+      setUser(null);
     } finally {
       setIsLoading(false);
     }
