@@ -245,13 +245,17 @@ class APITester:
         return success
     
     async def test_invalid_endpoints(self):
-        """Test invalid endpoints return 404"""
+        """Test invalid endpoints return appropriate status codes"""
         print("🔍 Testing API - Invalid endpoints")
         
-        endpoints = ["/invalid", "/auth/invalid", "/profile/invalid", "/connections/invalid"]
+        # These should return 404
+        endpoints_404 = ["/invalid", "/auth/invalid", "/connections/invalid"]
+        # These should return 401 (auth required before route matching)
+        endpoints_401 = ["/profile/invalid", "/conversations/invalid"]
+        
         all_success = True
         
-        for endpoint in endpoints:
+        for endpoint in endpoints_404:
             response = await self.make_request("GET", endpoint)
             success = response["status"] == 404
             if not success:
@@ -260,7 +264,16 @@ class APITester:
             else:
                 print(f"   ✅ {endpoint} correctly returned 404")
         
-        self.print_test_result("Invalid endpoints return 404", all_success)
+        for endpoint in endpoints_401:
+            response = await self.make_request("GET", endpoint)
+            success = response["status"] == 401
+            if not success:
+                all_success = False
+                print(f"   ❌ {endpoint} returned {response['status']}, expected 401 (auth required)")
+            else:
+                print(f"   ✅ {endpoint} correctly returned 401 (auth required)")
+        
+        self.print_test_result("Invalid endpoints return appropriate status codes", all_success)
         return all_success
     
     async def test_cors_headers(self):
