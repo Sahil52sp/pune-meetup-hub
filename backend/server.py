@@ -26,16 +26,7 @@ app = FastAPI(title="Meetup Network API", version="1.0.0")
 api_router = APIRouter(prefix="/api")
 
 
-# Database dependency
-async def get_database() -> AsyncIOMotorDatabase:
-    return db
-
-
-# Set up database dependency in route modules
-auth_routes.get_database = get_database
-profile_routes.get_database = get_database
-connection_routes.get_database = get_database  
-messaging_routes.get_database = get_database
+# Database dependency is now imported from database.py
 
 
 # Define Models for existing functionality
