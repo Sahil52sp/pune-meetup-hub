@@ -11,9 +11,8 @@ from models import (
 
 logger = logging.getLogger(__name__)
 
-# This will be injected by the main server
-def get_database() -> AsyncIOMotorDatabase:
-    pass
+# Import database
+from database import get_database
 
 router = APIRouter(prefix="/connections", tags=["connections"])
 
