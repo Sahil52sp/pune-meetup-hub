@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Box } from '@/components/ui/box';
 import { EventCard } from '@/components/events/EventCard';
 import { EventDetailPopup } from '@/components/events/EventDetailPopup';
+import { WelcomeBanner } from '@/components/onboarding/WelcomeBanner';
+import { QuickActions } from '@/components/onboarding/QuickActions';
 import { mockEvents } from '@/data/mockEvents';
 import { Event } from '@/types/event';
 import bgOrange from '@/assets/bg-orange-1.png';
@@ -54,6 +56,16 @@ export default function HomePage() {
             Skip the small talk. Join meetups that matter and network with purpose at events curated for serious professionals
           </p>
         </Box>
+      </Box>
+
+      {/* Welcome Banner for New Users */}
+      <Box className="relative z-10 mb-8">
+        <WelcomeBanner />
+      </Box>
+
+      {/* Quick Actions for Authenticated Users */}
+      <Box className="relative z-10 mb-8">
+        <QuickActions />
       </Box>
 
       {/* Top Events Section */}
