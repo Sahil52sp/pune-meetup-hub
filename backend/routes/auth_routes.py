@@ -7,11 +7,8 @@ from models import APIResponse
 
 logger = logging.getLogger(__name__)
 
-# Import database from server
-from server import db
-
-def get_database() -> AsyncIOMotorDatabase:
-    return db
+# Import database
+from database import get_database
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
