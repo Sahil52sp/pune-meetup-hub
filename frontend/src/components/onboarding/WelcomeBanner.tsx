@@ -5,17 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { User, ArrowRight, X } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { backendUrl } from '@/config/api';
 
 export const WelcomeBanner: React.FC = () => {
   const [hasProfile, setHasProfile] = useState<boolean | null>(null);
   const [dismissed, setDismissed] = useState(false);
   const { isAuthenticated, user } = useAuth();
 
-  const backendUrl = 'https://meetup-network-1.preview.emergentagent.com';
-
   useEffect(() => {
     if (!isAuthenticated) return;
-
     const checkProfile = async () => {
       try {
         const response = await fetch(`${backendUrl}/api/profile`, {

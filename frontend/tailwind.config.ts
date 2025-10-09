@@ -28,6 +28,10 @@ export default {
           DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",
         },
+        tertiary: {
+          DEFAULT: "var(--tertiary)",
+          foreground: "var(--tertiary-foreground)",
+        },
         destructive: {
           DEFAULT: "var(--destructive)",
           foreground: "var(--destructive-foreground)",
@@ -69,6 +73,7 @@ export default {
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',
+        'gradient-tertiary': 'var(--gradient-tertiary)',
         'gradient-hero': 'var(--gradient-hero)',
         'gradient-card': 'var(--gradient-card)',
       },

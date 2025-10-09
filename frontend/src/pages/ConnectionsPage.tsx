@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Users, Clock, Check, X, MessageSquare, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { backendUrl } from '@/config/api';
 import { Link } from 'react-router-dom';
 
 interface ConnectionRequest {
@@ -32,8 +33,6 @@ export default function ConnectionsPage() {
   const [loading, setLoading] = useState(true);
   const [respondingTo, setRespondingTo] = useState<string | null>(null);
   const { toast } = useToast();
-
-  const backendUrl = 'https://meetup-network-1.preview.emergentagent.com';
 
   useEffect(() => {
     loadAllConnections();

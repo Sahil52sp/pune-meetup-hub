@@ -153,7 +153,7 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button onClick={login} size="sm">
+            <Button onClick={login} size="sm" variant="tertiary">
               Sign In
             </Button>
           )}

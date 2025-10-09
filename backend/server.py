@@ -66,13 +66,28 @@ api_router.include_router(messaging_routes.router)
 # Include the main router in the app
 app.include_router(api_router)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Configure CORS - in development, allow local origins with regex
+is_development = os.environ.get('ENVIRONMENT', 'development') == 'development'
+
+if is_development:
+    # In development, allow all localhost and local network origins
+    app.add_middleware(
+        CORSMiddleware,
+        allow_credentials=True,
+        allow_origin_regex=r"http://(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+",
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+else:
+    # Use specific origins in production
+    cors_origins = os.environ.get('CORS_ORIGINS', '').split(',')
+    app.add_middleware(
+        CORSMiddleware,
+        allow_credentials=True,
+        allow_origins=cors_origins,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 # Configure logging
 logging.basicConfig(

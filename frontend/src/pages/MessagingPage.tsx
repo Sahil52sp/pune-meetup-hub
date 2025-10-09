@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { MessageSquare, Send, ArrowLeft } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { backendUrl } from '@/config/api';
 
 interface Message {
   id: string;
@@ -43,8 +44,6 @@ export default function MessagingPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
   const { toast } = useToast();
-
-  const backendUrl = 'https://meetup-network-1.preview.emergentagent.com';
 
   useEffect(() => {
     loadConversations();

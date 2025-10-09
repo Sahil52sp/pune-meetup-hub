@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Search, MapPin, Briefcase, Calendar, Users, MessageSquare, Filter } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { backendUrl } from '@/config/api';
 
 interface UserProfile {
   id: string;
@@ -42,8 +43,6 @@ export default function BrowseConnectionsPage() {
   const [sendingRequest, setSendingRequest] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const { toast } = useToast();
-
-  const backendUrl = 'https://meetup-network-1.preview.emergentagent.com';
 
   useEffect(() => {
     loadProfiles();

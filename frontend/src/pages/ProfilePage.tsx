@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { X, Plus, User, Briefcase, MapPin, Calendar, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { backendUrl } from '@/config/api';
 
 interface UserProfile {
   id: string;
@@ -40,8 +41,6 @@ export default function ProfilePage() {
   const [newInterest, setNewInterest] = useState('');
   const { user } = useAuth();
   const { toast } = useToast();
-
-  const backendUrl = 'https://meetup-network-1.preview.emergentagent.com';
 
   useEffect(() => {
     loadProfile();
