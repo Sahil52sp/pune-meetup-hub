@@ -75,8 +75,16 @@ if is_development:
         CORSMiddleware,
         allow_credentials=True,
         allow_origin_regex=r"http://(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+",
-        allow_methods=["*"],
-        allow_headers=["*"],
+        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allow_headers=[
+            "accept",
+            "accept-language", 
+            "content-type",
+            "x-session-id",
+            "authorization",
+            "cache-control",
+            "pragma"
+        ],
     )
 else:
     # Use specific origins in production
