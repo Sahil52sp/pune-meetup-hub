@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Request, status, Depends, Query
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 from auth import get_current_user
 from models import (
@@ -135,7 +135,7 @@ async def update_profile(
         
         # Update only provided fields
         update_data = {k: v for k, v in profile_data.model_dump().items() if v is not None}
-        update_data["updated_at"] = datetime.utcnow()
+        update_data["updated_at"] = datetime.now(timezone.utc)
         
         await db.user_profiles.update_one(
             {"user_id": current_user.id},

@@ -9,6 +9,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Event, EventCategory } from "@/types/event";
+import { formatEventDate, formatEventTime } from "@/utils/dateTime";
 
 interface EventCardProps {
   event: Event;
@@ -28,25 +29,6 @@ const categoryVariantMap: Record<
 };
 
 export function EventCard({ event, onClick }: EventCardProps) {
-  const formatDate = (date: string) => {
-    const eventDate = new Date(date);
-    return eventDate.toLocaleDateString("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
-  const formatTime = (time: string) => {
-    const [hours, minutes] = time.split(":");
-    const date = new Date();
-    date.setHours(parseInt(hours), parseInt(minutes));
-    return date.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    });
-  };
 
   return (
     <Card
@@ -71,7 +53,7 @@ export function EventCard({ event, onClick }: EventCardProps) {
         }}
       >
         <Box className="font-medium text-foreground whitespace-nowrap">
-          {formatDate(event.date)}
+          {formatEventDate(event.date)}
         </Box>
         <Box
           className="mx-1 sm:mx-2"
@@ -84,7 +66,7 @@ export function EventCard({ event, onClick }: EventCardProps) {
           }}
         />
         <Box className="text-xs text-muted-foreground whitespace-nowrap">
-          {formatTime(event.time)}
+          {formatEventTime(event.time)}
         </Box>
       </Box>
 

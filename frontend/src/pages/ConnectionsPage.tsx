@@ -9,6 +9,7 @@ import { Users, Clock, Check, X, MessageSquare, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { backendUrl } from '@/config/api';
 import { Link } from 'react-router-dom';
+import { formatDate } from '@/utils/dateTime';
 
 interface ConnectionRequest {
   id: string;
@@ -112,13 +113,6 @@ export default function ConnectionsPage() {
     }
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
