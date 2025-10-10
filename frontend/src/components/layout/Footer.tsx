@@ -1,14 +1,26 @@
-import { Link } from 'react-router-dom';
-import { MapPin, Mail, Globe, Github, Twitter, Instagram } from 'lucide-react';
-import logo from '@/Logo.svg';
+import { Link } from "react-router-dom";
+import { MapPin, Mail, Globe, Github, Twitter, Instagram } from "lucide-react";
+import logo from "@/Logo.svg";
 export function Footer() {
   return (
-    <footer className="bg-muted/30 border-t">
-      <div className="container px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-muted/30 border-t border-gray-100">
+       <div className="container px-4 py-8 flex flex-col items-center text-center">
+         <div className="relative">
+           <img
+             src={logo}
+             alt="Pune Meetup"
+             className="w-80 sm:w-80 md:w-80 lg:w-[600px]"
+           />
+           <div 
+             className="absolute inset-0 pointer-events-none"
+             style={{
+               background: 'linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 15%, transparent 80%)'
+             }}
+           />
+         </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-center justify-center">
           {/* Brand */}
           <div className="space-y-4">
-            <img src={logo} alt="Pune Meetup" className="w-36 sm:w-40 md:w-44 lg:w-[180px]" />
             {/* <p className="text-muted-foreground text-sm max-w-xs">
               Discover and connect with Pune's vibrant meetup and event community. Join us to learn, network, and grow together.
             </p> */}
@@ -92,14 +104,14 @@ export function Footer() {
           </div> */}
         </div>
 
-        <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
+        {/* <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
           <p>&copy; 2024 MeetupPune. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-primary transition-colors">Cookie Policy</a>
           </div>
-        </div>
+        </div> */}
       </div>
     </footer>
   );

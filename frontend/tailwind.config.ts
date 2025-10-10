@@ -74,6 +74,7 @@ export default {
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',
         'gradient-tertiary': 'var(--gradient-tertiary)',
+        'gradient-tertiary-hover': 'var(--gradient-tertiary-hover)',
         'gradient-hero': 'var(--gradient-hero)',
         'gradient-card': 'var(--gradient-card)',
       },

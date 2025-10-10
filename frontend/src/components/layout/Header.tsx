@@ -62,8 +62,27 @@ export function Header() {
               isActive("/") ? "nav-link-active" : "nav-link-inactive"
             }`}
           >
-            Home
+            {isAuthenticated ? "Dashboard" : "Home"}
           </Link>
+          <Link
+            to="/meetups"
+            className={`text-sm poppins-reg ${
+              isActive("/meetups") ? "nav-link-active" : "nav-link-inactive"
+            }`}
+          >
+            Meetups
+          </Link>
+          
+          {!isAuthenticated && (
+            <Link
+              to="/browse"
+              className={`text-sm poppins-reg ${
+                isActive("/browse") ? "nav-link-active" : "nav-link-inactive"
+              }`}
+            >
+              Find Connections
+            </Link>
+          )}
           
           {isAuthenticated && (
             <>
@@ -81,16 +100,16 @@ export function Header() {
                   isActive("/browse") ? "nav-link-active" : "nav-link-inactive"
                 }`}
               >
-                Browse Connections
+                Find Connections
               </Link>
-              <Link
+              {/* <Link
                 to="/connections"
                 className={`text-sm poppins-reg ${
                   isActive("/connections") ? "nav-link-active" : "nav-link-inactive"
                 }`}
               >
                 My Connections
-              </Link>
+              </Link> */}
               <Link
                 to="/messaging"
                 className={`text-sm poppins-reg ${
@@ -190,8 +209,29 @@ export function Header() {
                 isActive("/") ? "nav-link-active" : "nav-link-inactive"
               }`}
             >
-              Home
+              {isAuthenticated ? "Dashboard" : "Home"}
             </Link>
+            <Link
+              to="/meetups"
+              onClick={handleLinkClick}
+              className={`text-lg poppins-reg ${
+                isActive("/meetups") ? "nav-link-active" : "nav-link-inactive"
+              }`}
+            >
+              Meetups
+            </Link>
+            
+            {!isAuthenticated && (
+              <Link
+                to="/browse"
+                onClick={handleLinkClick}
+                className={`text-lg poppins-reg ${
+                  isActive("/browse") ? "nav-link-active" : "nav-link-inactive"
+                }`}
+              >
+                Find Connections
+              </Link>
+            )}
             
             {isAuthenticated ? (
               <>

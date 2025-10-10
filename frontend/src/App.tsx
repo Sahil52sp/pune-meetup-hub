@@ -9,6 +9,7 @@ import { Footer } from "./components/layout/Footer";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import HomePage from "./pages/HomePage";
+import MeetupsPage from "./pages/MeetupsPage";
 import ConnectionsPage from "./pages/ConnectionsPage";
 import ProfilePage from "./pages/ProfilePage";
 import MessagingPage from "./pages/MessagingPage";
@@ -29,16 +30,13 @@ const App = () => {
               <Box as="main" className="flex-1">
                 <Routes>
                   <Route path="/" element={<HomePage />} />
+                  <Route path="/meetups" element={<MeetupsPage />} />
                   <Route path="/connections" element={
                     <ProtectedRoute>
                       <ConnectionsPage />
                     </ProtectedRoute>
                   } />
-                  <Route path="/browse" element={
-                    <ProtectedRoute>
-                      <BrowseConnectionsPage />
-                    </ProtectedRoute>
-                  } />
+                  <Route path="/browse" element={<BrowseConnectionsPage />} />
                   <Route path="/profile" element={
                     <ProtectedRoute>
                       <ProfilePage />
