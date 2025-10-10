@@ -110,6 +110,83 @@ class EmailService:
             logger.error(f"Error sending connection request email: {str(e)}")
             return False
 
+    async def send_connection_accepted_email(
+        self,
+        sender_email: str,
+        sender_name: str,
+        accepter_name: str,
+        request_host: str = None
+    ) -> bool:
+        """Send email notification when connection request is accepted"""
+        if not self.client:
+            logger.warning("SendGrid client not initialized. Skipping email.")
+            return False
+
+        try:
+            subject = f"{accepter_name} accepted your connection request!"
+            
+            # Get frontend URL and create link to messaging page
+            frontend_url = self._get_frontend_url(request_host)
+            messaging_link = f"{frontend_url}/messaging"
+            
+            html_content = f"""
+            <html>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <h2 style="color: #28a745; margin-bottom: 20px;">🎉 Connection Accepted!</h2>
+                    <p>Hi {sender_name},</p>
+                    <p>Great news! <strong>{accepter_name}</strong> has accepted your connection request.</p>
+                    <p>You can now start messaging each other and build your professional network.</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="{messaging_link}" style="background-color: #28a745; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">Start Messaging</a>
+                    </div>
+                    <p style="color: #666; font-size: 14px;">Click the button above to start your conversation with {accepter_name}.</p>
+                    <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+                    <p style="color: #666; font-size: 12px;">
+                        Best regards,<br>
+                        Pune Meetup Hub Team
+                    </p>
+                </div>
+            </body>
+            </html>
+            """
+            
+            plain_content = f"""
+            Connection Accepted!
+            
+            Hi {sender_name},
+            
+            Great news! {accepter_name} has accepted your connection request.
+            
+            You can now start messaging each other and build your professional network.
+            
+            Start messaging: {messaging_link}
+            
+            Best regards,
+            Pune Meetup Hub Team
+            """
+
+            mail = Mail(
+                from_email=self.from_email,
+                to_emails=sender_email,
+                subject=subject,
+                html_content=html_content,
+                plain_text_content=plain_content
+            )
+
+            response = self.client.send(mail)
+            
+            if response.status_code == 202:
+                logger.info(f"Connection accepted email sent successfully to {sender_email}")
+                return True
+            else:
+                logger.error(f"Failed to send connection accepted email. Status code: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Error sending connection accepted email: {str(e)}")
+            return False
+
     async def send_message_notification_email(
         self,
         receiver_email: str,

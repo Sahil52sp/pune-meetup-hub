@@ -302,7 +302,7 @@ async def respond_to_connection_request(
             }
         )
         
-        # If accepted, create conversation
+        # If accepted, create conversation and send email notification
         if response_data.status == ConnectionStatus.ACCEPTED:
             # Check if conversation already exists
             existing_conversation = await db.conversations.find_one({
@@ -324,6 +324,25 @@ async def respond_to_connection_request(
                     user2_id=connection_request["receiver_id"]
                 )
                 await db.conversations.insert_one(conversation.model_dump())
+            
+            # Send email notification to the original sender
+            sender_user = await db.users.find_one({"id": connection_request["sender_id"]})
+            accepter_user = await db.users.find_one({"id": connection_request["receiver_id"]})
+            
+            if sender_user and accepter_user:
+                try:
+                    # Get the host from the request headers
+                    request_host = request.headers.get("host", "")
+                    
+                    await email_service.send_connection_accepted_email(
+                        sender_email=sender_user.get("email"),
+                        sender_name=sender_user.get("name", "User"),
+                        accepter_name=accepter_user.get("name", "Someone"),
+                        request_host=request_host
+                    )
+                    logger.info(f"Connection accepted email sent to {connection_request['sender_id']}")
+                except Exception as e:
+                    logger.error(f"Failed to send connection accepted email: {str(e)}")
         
         return APIResponse(
             success=True,
