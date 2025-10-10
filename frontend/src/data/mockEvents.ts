@@ -91,88 +91,88 @@ Shobhit Verma - “You Can’t Improve What You Can’t Observe: Observability L
     tags: [],
     isFeatured: true
   },
-  {
-    id: "python-data-science-workshop",
-    title: "Python for Data Science: Hands-on Workshop",
-    description: "Learn Python fundamentals for data science with hands-on exercises. Perfect for beginners and intermediate learners.",
-    shortDescription: "Master Python for data science with practical exercises and real-world projects.",
-    category: "Workshop",
-    date: "2024-03-20",
-    time: "14:00",
-    venue: {
-      name: "Symbiosis Institute",
-      address: "Symbiosis Knowledge Village, Lavale, Pune",
-      googleMapsLink: ""
-    },
-    organizer: {
-      name: "DataScience Pune",
-      contact: "workshops@datasciencepune.org",
-      website: ""
-    },
-    externalLink: "",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=400&fit=crop&crop=center",
-    tags: ["Python", "Data Science", "Machine Learning", "Workshop"],
-    isFeatured: false
-  },
-  {
-    id: "digital-art-exhibition-wakad",
-    title: "AI Career & Community Day",
-    description: `Dear Community Members,
+  // {
+  //   id: "python-data-science-workshop",
+  //   title: "Python for Data Science: Hands-on Workshop",
+  //   description: "Learn Python fundamentals for data science with hands-on exercises. Perfect for beginners and intermediate learners.",
+  //   shortDescription: "Master Python for data science with practical exercises and real-world projects.",
+  //   category: "Workshop",
+  //   date: "2024-03-20",
+  //   time: "14:00",
+  //   venue: {
+  //     name: "Symbiosis Institute",
+  //     address: "Symbiosis Knowledge Village, Lavale, Pune",
+  //     googleMapsLink: ""
+  //   },
+  //   organizer: {
+  //     name: "DataScience Pune",
+  //     contact: "workshops@datasciencepune.org",
+  //     website: ""
+  //   },
+  //   externalLink: "",
+  //   image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=400&fit=crop&crop=center",
+  //   tags: ["Python", "Data Science", "Machine Learning", "Workshop"],
+  //   isFeatured: false
+  // },
+//   {
+//     id: "digital-art-exhibition-wakad",
+//     title: "AI Career & Community Day",
+//     description: `Dear Community Members,
 
-Join us on 11th October 2025 at MCCIA (SB Road) Pune for a bespoke gathering of AI/ML professionals, DevOps engineers, MLOps specialists, and Cloud practitioners.
+// Join us on 11th October 2025 at MCCIA (SB Road) Pune for a bespoke gathering of AI/ML professionals, DevOps engineers, MLOps specialists, and Cloud practitioners.
 
-What’s in it for you?
+// What’s in it for you?
 
-Attend tech talks & meetups with industry leaders and tech communities leaders
-⁠Explore career pathways across AI/ML, MLOps, DevOps & Cloud
-⁠Learn, network, and connect with peers shaping Pune’s AI ecosystem
-Registration is mandatory
+// Attend tech talks & meetups with industry leaders and tech communities leaders
+// ⁠Explore career pathways across AI/ML, MLOps, DevOps & Cloud
+// ⁠Learn, network, and connect with peers shaping Pune’s AI ecosystem
+// Registration is mandatory
 
-📍 MCCIA, SB Road, Pune - 11th October 2025 | 11 AM – 4 PM
-Register now and secure your spot!
-https://www.puneaijobs.com/campaign-landing`,
-    shortDescription: "Join us on 11th October 2025 at MCCIA (SB Road) Pune for a bespoke gathering of AI/ML professionals, DevOps engineers, MLOps specialists, and Cloud practitioners.",
-    category: "Arts",
-    date: "2025-10-11",
-    time: "11:00",
-    venue: {
-      name: "MCCIA Trade Tower",
-      address: "Shekhar Natu Training Hall, No. 3 505 A Wing, 5th floor,, Senapati Bapat Road · Pune",
-      googleMapsLink: ""
-    },
-    organizer: {
-      name: "By Talent Quotient Partners",
-      contact: "info@puneaijobs.com",
-      website: ""
-    },
-    externalLink: "",
-    image: talentquotientImg,
-    tags: [],
-    isFeatured: true
-  },
-  {
-    id: "badminton-tournament-viman-nagar",
-    title: "Pune Corporate Badminton Championship 2024",
-    description: "Join the biggest corporate badminton tournament in Pune. Teams from top companies compete for the championship title.",
-    shortDescription: "Compete in Pune's premier corporate badminton tournament with teams from top companies.",
-    category: "Sports",
-    date: "2024-03-25",
-    time: "08:00",
-    venue: {
-      name: "Pune Sports Complex",
-      address: "Viman Nagar, Pune",
-      googleMapsLink: ""
-    },
-    organizer: {
-      name: "Pune Sports Club",
-      contact: "sports@punesportsclub.com",
-      website: ""
-    },
-    externalLink: "",
-    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&h=400&fit=crop&crop=center",
-    tags: ["Badminton", "Sports", "Corporate", "Tournament"],
-    isFeatured: false
-  },
+// 📍 MCCIA, SB Road, Pune - 11th October 2025 | 11 AM – 4 PM
+// Register now and secure your spot!
+// https://www.puneaijobs.com/campaign-landing`,
+//     shortDescription: "Join us on 11th October 2025 at MCCIA (SB Road) Pune for a bespoke gathering of AI/ML professionals, DevOps engineers, MLOps specialists, and Cloud practitioners.",
+//     category: "Arts",
+//     date: "2025-10-11",
+//     time: "11:00",
+//     venue: {
+//       name: "MCCIA Trade Tower",
+//       address: "Shekhar Natu Training Hall, No. 3 505 A Wing, 5th floor,, Senapati Bapat Road · Pune",
+//       googleMapsLink: ""
+//     },
+//     organizer: {
+//       name: "By Talent Quotient Partners",
+//       contact: "info@puneaijobs.com",
+//       website: ""
+//     },
+//     externalLink: "",
+//     image: talentquotientImg,
+//     tags: [],
+//     isFeatured: true
+//   },
+  // {
+  //   id: "badminton-tournament-viman-nagar",
+  //   title: "Pune Corporate Badminton Championship 2024",
+  //   description: "Join the biggest corporate badminton tournament in Pune. Teams from top companies compete for the championship title.",
+  //   shortDescription: "Compete in Pune's premier corporate badminton tournament with teams from top companies.",
+  //   category: "Sports",
+  //   date: "2024-03-25",
+  //   time: "08:00",
+  //   venue: {
+  //     name: "Pune Sports Complex",
+  //     address: "Viman Nagar, Pune",
+  //     googleMapsLink: ""
+  //   },
+  //   organizer: {
+  //     name: "Pune Sports Club",
+  //     contact: "sports@punesportsclub.com",
+  //     website: ""
+  //   },
+  //   externalLink: "",
+  //   image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&h=400&fit=crop&crop=center",
+  //   tags: ["Badminton", "Sports", "Corporate", "Tournament"],
+  //   isFeatured: false
+  // },
   {
     id: "ai-ml-conference-pune",
     title: "AI & Machine Learning Conference 2024",

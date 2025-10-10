@@ -30,6 +30,9 @@ import {
   Users,
   MessageSquare,
   Filter,
+  Tag,
+  ArrowBigRight,
+  ArrowRight,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { backendUrl } from "@/config/api";
@@ -67,6 +70,10 @@ export default function BrowseConnectionsPage() {
   const [requestMessage, setRequestMessage] = useState("");
   const [sendingRequest, setSendingRequest] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [expandedSkills, setExpandedSkills] = useState<Set<string>>(new Set());
+  const [expandedInterests, setExpandedInterests] = useState<Set<string>>(
+    new Set()
+  );
   const { toast } = useToast();
   const { isAuthenticated, login, isLoading } = useAuth();
 
@@ -221,6 +228,30 @@ export default function BrowseConnectionsPage() {
     loadProfiles();
   };
 
+  const toggleSkillsExpansion = (profileId: string) => {
+    setExpandedSkills((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(profileId)) {
+        newSet.delete(profileId);
+      } else {
+        newSet.add(profileId);
+      }
+      return newSet;
+    });
+  };
+
+  const toggleInterestsExpansion = (profileId: string) => {
+    setExpandedInterests((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(profileId)) {
+        newSet.delete(profileId);
+      } else {
+        newSet.add(profileId);
+      }
+      return newSet;
+    });
+  };
+
   return (
     <Box className="container mx-auto px-4 py-8">
       {/* <div className="mb-8">
@@ -231,7 +262,7 @@ export default function BrowseConnectionsPage() {
       </div> */}
 
       {/* Search and Filters */}
-      <Card className="mb-6 mx-80">
+      <Card className="mb-6 lg:mx-80 mx-0">
         <CardContent className="p-2">
           <form onSubmit={handleSearch} className="space-y-4">
             <div className="flex gap-4">
@@ -242,7 +273,7 @@ export default function BrowseConnectionsPage() {
                     placeholder="Search by skills, job title, company, or bio..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 text-sm"
                   />
                 </div>
               </div>
@@ -251,10 +282,11 @@ export default function BrowseConnectionsPage() {
                 variant="outline"
                 onClick={() => setShowFilters(!showFilters)}
               >
-                <Filter className="h-4 w-4 mr-2" />
-                Filters
+                <Filter className="h-4 w-4" />
               </Button>
-              <Button type="submit">Search</Button>
+              <Button type="submit">
+                <ArrowRight className="h-4 w-4" />
+              </Button>
             </div>
 
             {showFilters && (
@@ -293,22 +325,21 @@ export default function BrowseConnectionsPage() {
       {/* Results */}
       {!loading && (
         <>
-          <div className="mb-4 mx-80">
-            <p className="text-sm text-muted-foreground">
-              Found {profiles.length} professional
-              {profiles.length !== 1 ? "s" : ""} open for connections
+          <div className="mb-4 lg:mx-80 mx-0">
+            <p className="text-sm text-muted-foreground lg:mx-8 mx-2">
+              Found <b className="text-tertiary">{profiles.length} professional{profiles.length !== 1 ? "s" : ""}</b> open for connections
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 lg:mx-80 sm:mx-0">
+          <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 lg:mx-80 sm:mx-0">
             {profiles.map((profile) => (
               <Card
                 key={profile.id}
-                className="hover:shadow-lg transition-shadow mx-8"
+                className="hover:shadow-lg transition-shadow lg:mx-8 sm:mx-0"
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-start gap-4">
-                    <Avatar className="h-16 w-16">
+                    <Avatar className="lg:h-16 lg:w-16 h-20 w-20">
                       <AvatarImage
                         src={profile.user_picture}
                         alt={profile.user_name}
@@ -317,14 +348,14 @@ export default function BrowseConnectionsPage() {
                         {profile.user_name.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="flex-1 min-w-0 ">
+                    <div className="flex-1 min-w-0  ">
                       <h3 className="font-semibold text-lg truncate">
                         {profile.user_name}
                       </h3>
-                      <div className="flex flex-row gap-6">
+                      <div className="flex flex-col gap-0 lg:flex-row sm:gap-2 md:gap-6 flex-wrap">
                         {profile.job_title && (
                           <p className="text-sm text-muted-foreground flex items-center gap-1">
-                            <Briefcase className="h-3 w-3" />
+                            <Tag className="h-3 w-3" />
                             {profile.job_title}
                           </p>
                         )}
@@ -336,8 +367,8 @@ export default function BrowseConnectionsPage() {
                         {profile.years_experience !== undefined &&
                           profile.years_experience > 0 && (
                             <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                              <Calendar className="h-3 w-3" />
-                              {profile.years_experience} years experience
+                              <Briefcase className="h-3 w-3" />
+                              {profile.years_experience} years exp.
                             </div>
                           )}
                       </div>
@@ -349,135 +380,173 @@ export default function BrowseConnectionsPage() {
                   {profile.bio && (
                     <p className="text-sm line-clamp-3">{profile.bio}</p>
                   )}
-
-                  {/* Skills */}
-                  {profile.skills.length > 0 && (
-                    <div className="space-y-2">
-                      <p className="text-sm font-medium">Skills</p>
-                      <div className="flex flex-wrap gap-1">
-                        {profile.skills.slice(0, 3).map((skill, index) => (
-                          <Badge
-                            key={index}
-                            variant="secondary"
-                            className="text-xs"
-                          >
-                            {skill}
-                          </Badge>
-                        ))}
-                        {profile.skills.length > 3 && (
-                          <Badge variant="outline" className="text-xs">
-                            +{profile.skills.length - 3} more
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Interests */}
-                  {profile.interests.length > 0 && (
-                    <div className="space-y-2">
-                      <p className="text-sm font-medium">Interests</p>
-                      <div className="flex flex-wrap gap-1">
-                        {profile.interests
-                          .slice(0, 3)
-                          .map((interest, index) => (
-                            <Badge
-                              key={index}
-                              variant="outline"
-                              className="text-xs"
-                            >
-                              {interest}
-                            </Badge>
-                          ))}
-                        {profile.interests.length > 3 && (
-                          <Badge variant="outline" className="text-xs">
-                            +{profile.interests.length - 3} more
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        className="w-full"
-                        onClick={() => {
-                          setSelectedProfile(profile);
-                          setRequestMessage(
-                            `Hi ${profile.user_name}, I'd like to connect with you!`
-                          );
-                        }}
-                      >
-                        <Users className="h-4 w-4 mr-2" />
-                        Send Connection Request
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Send Connection Request</DialogTitle>
-                        <DialogDescription>
-                          Send a personalized message to{" "}
-                          {selectedProfile?.user_name}
-                        </DialogDescription>
-                      </DialogHeader>
-
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                          <Avatar>
-                            <AvatarImage
-                              src={selectedProfile?.user_picture}
-                              alt={selectedProfile?.user_name}
-                            />
-                            <AvatarFallback>
-                              {selectedProfile?.user_name
-                                ?.charAt(0)
-                                ?.toUpperCase()}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <p className="font-medium">
-                              {selectedProfile?.user_name}
-                            </p>
-                            <p className="text-sm text-muted-foreground">
-                              {selectedProfile?.job_title}{" "}
-                              {selectedProfile?.company &&
-                                `at ${selectedProfile.company}`}
-                            </p>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex lg:flex-row md:flex-row flex-col gap-2 sm:gap-4 md:gap-2 flex-wrap">
+                      {/* Skills */}
+                      {profile.skills.length > 0 && (
+                        <div className="flex-1 space-y-2 bg-gray-100 py-2 px-4 rounded-md">
+                          <p className="text-sm font-medium">Skills</p>
+                          <div className="flex flex-wrap gap-1">
+                            {profile.skills
+                              .slice(
+                                0,
+                                expandedSkills.has(profile.id)
+                                  ? profile.skills.length
+                                  : 6
+                              )
+                              .map((skill, index) => (
+                                <Badge
+                                  key={index}
+                                  variant="outline"
+                                  className="text-xs font-normal"
+                                >
+                                  {skill}
+                                </Badge>
+                              ))}
+                            {profile.skills.length > 6 && (
+                              <Badge
+                                variant="outline"
+                                className="text-xs cursor-pointer hover:bg-gray-100"
+                                onClick={() =>
+                                  toggleSkillsExpansion(profile.id)
+                                }
+                              >
+                                {expandedSkills.has(profile.id)
+                                  ? "Show less"
+                                  : `+${profile.skills.length - 6} more`}
+                              </Badge>
+                            )}
                           </div>
                         </div>
+                      )}
 
-                        <div>
-                          <Label htmlFor="message">Message</Label>
-                          <Textarea
-                            id="message"
-                            placeholder="Introduce yourself and explain why you'd like to connect..."
-                            value={requestMessage}
-                            onChange={(e) => setRequestMessage(e.target.value)}
-                            rows={4}
-                          />
+                      {/* Interests */}
+                      {profile.interests.length > 0 && (
+                        <div className="flex-1 space-y-2 bg-gray-100 py-2 px-4 rounded-md">
+                          <p className="text-sm font-medium">Interests</p>
+                          <div className="flex flex-wrap gap-1">
+                            {profile.interests
+                              .slice(
+                                0,
+                                expandedInterests.has(profile.id)
+                                  ? profile.interests.length
+                                  : 6
+                              )
+                              .map((interest, index) => (
+                                <Badge
+                                  key={index}
+                                  variant="outline"
+                                  className="text-xs font-normal"
+                                >
+                                  {interest}
+                                </Badge>
+                              ))}
+                            {profile.interests.length > 6 && (
+                              <Badge
+                                variant="outline"
+                                className="text-xs cursor-pointer hover:bg-gray-100"
+                                onClick={() =>
+                                  toggleInterestsExpansion(profile.id)
+                                }
+                              >
+                                {expandedInterests.has(profile.id)
+                                  ? "Show less"
+                                  : `+${profile.interests.length - 6} more`}
+                              </Badge>
+                            )}
+                          </div>
                         </div>
-                      </div>
+                      )}
+                    </div>
 
-                      <DialogFooter>
-                        <Button
-                          variant="outline"
-                          onClick={() => {
-                            setSelectedProfile(null);
-                            setRequestMessage("");
-                          }}
-                        >
-                          Cancel
-                        </Button>
-                        <Button
-                          onClick={sendConnectionRequest}
-                          disabled={sendingRequest || !requestMessage.trim()}
-                        >
-                          {sendingRequest ? "Sending..." : "Send Request"}
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
+                    <div className="flex lg:justify-end">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="tertiary"
+                            className="w-full lg:w-auto"
+                            onClick={() => {
+                              setSelectedProfile(profile);
+                              setRequestMessage(
+                                `Hi ${profile.user_name}, I'd like to connect with you!`
+                              );
+                            }}
+                          >
+                            Send Connection Request
+                            <ArrowRight className="h-4 w-4 ml-2" />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Send a connection request</DialogTitle>
+                            <DialogDescription>
+                              Send a personalized message to{" "}
+                              {selectedProfile?.user_name}
+                            </DialogDescription>
+                          </DialogHeader>
+
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                              <Avatar>
+                                <AvatarImage
+                                  src={selectedProfile?.user_picture}
+                                  alt={selectedProfile?.user_name}
+                                />
+                                <AvatarFallback>
+                                  {selectedProfile?.user_name
+                                    ?.charAt(0)
+                                    ?.toUpperCase()}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <p className="font-medium">
+                                  {selectedProfile?.user_name}
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {selectedProfile?.job_title}{" "}
+                                  {selectedProfile?.company &&
+                                    `at ${selectedProfile.company}`}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div>
+                              <Label htmlFor="message">Message</Label>
+                              <Textarea
+                                id="message"
+                                placeholder="Introduce yourself and explain why you'd like to connect..."
+                                value={requestMessage}
+                                onChange={(e) =>
+                                  setRequestMessage(e.target.value)
+                                }
+                                rows={4}
+                              />
+                            </div>
+                          </div>
+
+                          <DialogFooter>
+                            <Button
+                              variant="outline"
+                              onClick={() => {
+                                setSelectedProfile(null);
+                                setRequestMessage("");
+                              }}
+                            >
+                              Cancel
+                            </Button>
+                            <Button
+                              onClick={sendConnectionRequest}
+                              disabled={
+                                sendingRequest || !requestMessage.trim()
+                              }
+                            >
+                              {sendingRequest ? "Sending..." : "Send Request"}
+                            </Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             ))}
