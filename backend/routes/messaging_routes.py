@@ -8,6 +8,7 @@ from models import (
     User, Conversation, Message, MessageCreate, MessageResponse,
     ConversationDetail, ConnectionStatus, APIResponse
 )
+from email_service import email_service
 
 logger = logging.getLogger(__name__)
 
@@ -306,6 +307,28 @@ async def send_message(
             {"id": conversation_id},
             {"$set": {"last_message_at": message.timestamp}}
         )
+        
+        # Get receiver user details for email notification
+        receiver_user = await db.users.find_one({"id": other_user_id})
+        sender_user = await db.users.find_one({"id": current_user.id})
+        
+        # Send email notification to receiver
+        if receiver_user and sender_user:
+            try:
+                # Get the host from the request headers
+                request_host = request.headers.get("host", "")
+                
+                await email_service.send_message_notification_email(
+                    receiver_email=receiver_user.get("email"),
+                    receiver_name=receiver_user.get("name", "User"),
+                    sender_name=sender_user.get("name", "PuneMeetups"),
+                    message_content=message.content,
+                    conversation_id=conversation_id,
+                    request_host=request_host
+                )
+                logger.info(f"Message notification email sent from {current_user.id} to {other_user_id}")
+            except Exception as e:
+                logger.error(f"Failed to send message notification email: {str(e)}")
         
         return APIResponse(
             success=True,

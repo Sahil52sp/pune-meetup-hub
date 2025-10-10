@@ -8,6 +8,7 @@ from models import (
     User, ConnectionRequest, ConnectionRequestCreate, ConnectionRequestResponse,
     ConnectionRequestDetail, ConnectionStatus, Conversation, APIResponse
 )
+from email_service import email_service
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +65,26 @@ async def send_connection_request(
         )
         
         await db.connection_requests.insert_one(connection_request.model_dump())
+        
+        # Get receiver user details for email
+        receiver_user = await db.users.find_one({"id": request_data.receiver_id})
+        sender_user = await db.users.find_one({"id": current_user.id})
+        # Send email notification
+        if receiver_user:
+            try:
+                # Get the host from the request headers
+                request_host = request.headers.get("host", "")
+                
+                await email_service.send_connection_request_email(
+                    receiver_email=receiver_user.get("email"),
+                    receiver_name=receiver_user.get("name", "User"),
+                    sender_name=sender_user.get("name", "Someone"),
+                    message=request_data.message,
+                    request_host=request_host
+                )
+                logger.info(f"Email notification sent for connection request from {current_user.id} to {request_data.receiver_id}")
+            except Exception as e:
+                logger.error(f"Failed to send email notification: {str(e)}")
         
         return APIResponse(
             success=True,
