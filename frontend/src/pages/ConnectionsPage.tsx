@@ -209,11 +209,12 @@ export default function ConnectionsPage() {
                       </div>
 
                       {request.status === 'pending' && (
-                        <div className="flex gap-2 pt-2">
+                        <div className="flex flex-col sm:flex-row gap-2 pt-2">
                           <Button
                             size="sm"
                             onClick={() => respondToRequest(request.id, 'accepted')}
                             disabled={respondingTo === request.id}
+                            className="w-full sm:w-auto"
                           >
                             <Check className="h-4 w-4 mr-1" />
                             Accept
@@ -223,6 +224,7 @@ export default function ConnectionsPage() {
                             variant="outline"
                             onClick={() => respondToRequest(request.id, 'rejected')}
                             disabled={respondingTo === request.id}
+                            className="w-full sm:w-auto"
                           >
                             <X className="h-4 w-4 mr-1" />
                             Decline
