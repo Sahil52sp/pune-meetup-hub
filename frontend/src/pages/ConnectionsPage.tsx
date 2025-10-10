@@ -191,14 +191,14 @@ export default function ConnectionsPage() {
                     </Avatar>
                     
                     <div className="flex-1 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold">{request.sender_name}</h3>
-                          <p className="text-sm text-muted-foreground">{request.sender_email}</p>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold truncate">{request.sender_name}</h3>
+                          <p className="text-sm text-muted-foreground truncate">{request.sender_email}</p>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                           {getStatusBadge(request.status)}
-                          <span className="text-sm text-muted-foreground">
+                          <span className="text-xs sm:text-sm text-muted-foreground">
                             {formatDate(request.created_at)}
                           </span>
                         </div>
