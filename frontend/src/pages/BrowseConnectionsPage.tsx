@@ -1,17 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { Box } from '@/components/ui/box';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Search, MapPin, Briefcase, Calendar, Users, MessageSquare, Filter } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { backendUrl } from '@/config/api';
-import { useAuth } from '@/contexts/AuthContext';
+import React, { useState, useEffect } from "react";
+import { Box } from "@/components/ui/box";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Search,
+  MapPin,
+  Briefcase,
+  Calendar,
+  Users,
+  MessageSquare,
+  Filter,
+} from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { backendUrl } from "@/config/api";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface UserProfile {
   id: string;
@@ -36,11 +58,13 @@ interface UserProfile {
 export default function BrowseConnectionsPage() {
   const [profiles, setProfiles] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [locationFilter, setLocationFilter] = useState('');
-  const [companyFilter, setCompanyFilter] = useState('');
-  const [selectedProfile, setSelectedProfile] = useState<UserProfile | null>(null);
-  const [requestMessage, setRequestMessage] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [locationFilter, setLocationFilter] = useState("");
+  const [companyFilter, setCompanyFilter] = useState("");
+  const [selectedProfile, setSelectedProfile] = useState<UserProfile | null>(
+    null
+  );
+  const [requestMessage, setRequestMessage] = useState("");
   const [sendingRequest, setSendingRequest] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const { toast } = useToast();
@@ -64,17 +88,15 @@ export default function BrowseConnectionsPage() {
       <Box className="flex items-center justify-center min-h-screen px-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold">Welcome to Find Connections</CardTitle>
+            <CardTitle className="text-2xl font-bold">
+              Welcome to Find Connections
+            </CardTitle>
             <CardDescription>
               Sign in with Google to start networking with tech professionals
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button 
-              onClick={login} 
-              className="w-full" 
-              size="lg"
-            >
+            <Button onClick={login} className="w-full" size="lg">
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                 <path
                   fill="currentColor"
@@ -96,7 +118,8 @@ export default function BrowseConnectionsPage() {
               Sign in with Google
             </Button>
             <p className="text-sm text-muted-foreground text-center">
-              Connect with fellow developers, attend meetups, and grow your professional network
+              Connect with fellow developers, attend meetups, and grow your
+              professional network
             </p>
           </CardContent>
         </Card>
@@ -114,14 +137,17 @@ export default function BrowseConnectionsPage() {
     setLoading(true);
     try {
       const params = new URLSearchParams();
-      if (searchTerm) params.append('search', searchTerm);
-      if (locationFilter) params.append('location', locationFilter);
-      if (companyFilter) params.append('company', companyFilter);
-      params.append('limit', '20');
+      if (searchTerm) params.append("search", searchTerm);
+      if (locationFilter) params.append("location", locationFilter);
+      if (companyFilter) params.append("company", companyFilter);
+      params.append("limit", "20");
 
-      const response = await fetch(`${backendUrl}/api/profile/browse?${params}`, {
-        credentials: 'include'
-      });
+      const response = await fetch(
+        `${backendUrl}/api/profile/browse?${params}`,
+        {
+          credentials: "include",
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -129,14 +155,14 @@ export default function BrowseConnectionsPage() {
           setProfiles(data.data.profiles);
         }
       } else {
-        throw new Error('Failed to load profiles');
+        throw new Error("Failed to load profiles");
       }
     } catch (error) {
-      console.error('Error loading profiles:', error);
+      console.error("Error loading profiles:", error);
       toast({
         title: "Error",
         description: "Failed to load profiles",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -149,36 +175,41 @@ export default function BrowseConnectionsPage() {
     setSendingRequest(true);
     try {
       const response = await fetch(`${backendUrl}/api/connections/request`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({
           receiver_id: selectedProfile.user_id,
-          message: requestMessage.trim()
-        })
+          message: requestMessage.trim(),
+        }),
       });
 
       if (response.ok) {
         toast({
           title: "Success",
-          description: "Connection request sent successfully!"
+          description: "Connection request sent successfully!",
         });
         setSelectedProfile(null);
-        setRequestMessage('');
+        setRequestMessage("");
         // Remove the profile from the list since request is sent
-        setProfiles(profiles.filter(p => p.user_id !== selectedProfile.user_id));
+        setProfiles(
+          profiles.filter((p) => p.user_id !== selectedProfile.user_id)
+        );
       } else {
         const data = await response.json();
-        throw new Error(data.detail || 'Failed to send connection request');
+        throw new Error(data.detail || "Failed to send connection request");
       }
     } catch (error) {
-      console.error('Error sending connection request:', error);
+      console.error("Error sending connection request:", error);
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "Failed to send connection request",
-        variant: "destructive"
+        description:
+          error instanceof Error
+            ? error.message
+            : "Failed to send connection request",
+        variant: "destructive",
       });
     } finally {
       setSendingRequest(false);
@@ -192,16 +223,16 @@ export default function BrowseConnectionsPage() {
 
   return (
     <Box className="container mx-auto px-4 py-8">
-      <div className="mb-8">
+      {/* <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Browse Connections</h1>
         <p className="text-muted-foreground">
           Discover and connect with tech professionals in your area
         </p>
-      </div>
+      </div> */}
 
       {/* Search and Filters */}
-      <Card className="mb-6">
-        <CardContent className="pt-6">
+      <Card className="mb-6 mx-80">
+        <CardContent className="p-2">
           <form onSubmit={handleSearch} className="space-y-4">
             <div className="flex gap-4">
               <div className="flex-1">
@@ -215,9 +246,9 @@ export default function BrowseConnectionsPage() {
                   />
                 </div>
               </div>
-              <Button 
+              <Button
                 type="button"
-                variant="outline" 
+                variant="outline"
                 onClick={() => setShowFilters(!showFilters)}
               >
                 <Filter className="h-4 w-4 mr-2" />
@@ -262,61 +293,61 @@ export default function BrowseConnectionsPage() {
       {/* Results */}
       {!loading && (
         <>
-          <div className="mb-4">
+          <div className="mb-4 mx-80">
             <p className="text-sm text-muted-foreground">
-              Found {profiles.length} professional{profiles.length !== 1 ? 's' : ''} open for connections
+              Found {profiles.length} professional
+              {profiles.length !== 1 ? "s" : ""} open for connections
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 lg:mx-80 sm:mx-0">
             {profiles.map((profile) => (
-              <Card key={profile.id} className="hover:shadow-lg transition-shadow">
+              <Card
+                key={profile.id}
+                className="hover:shadow-lg transition-shadow mx-8"
+              >
                 <CardHeader className="pb-4">
                   <div className="flex items-start gap-4">
-                    <Avatar className="h-12 w-12">
-                      <AvatarImage src={profile.user_picture} alt={profile.user_name} />
+                    <Avatar className="h-16 w-16">
+                      <AvatarImage
+                        src={profile.user_picture}
+                        alt={profile.user_name}
+                      />
                       <AvatarFallback>
                         {profile.user_name.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 ">
                       <h3 className="font-semibold text-lg truncate">
                         {profile.user_name}
                       </h3>
-                      {profile.job_title && (
-                        <p className="text-sm text-muted-foreground flex items-center gap-1">
-                          <Briefcase className="h-3 w-3" />
-                          {profile.job_title}
-                        </p>
-                      )}
-                      {profile.company && (
-                        <p className="text-sm text-muted-foreground">
-                          @ {profile.company}
-                        </p>
-                      )}
+                      <div className="flex flex-row gap-6">
+                        {profile.job_title && (
+                          <p className="text-sm text-muted-foreground flex items-center gap-1">
+                            <Briefcase className="h-3 w-3" />
+                            {profile.job_title}
+                          </p>
+                        )}
+                        {profile.company && (
+                          <p className="text-sm text-muted-foreground">
+                            @ {profile.company}
+                          </p>
+                        )}
+                        {profile.years_experience !== undefined &&
+                          profile.years_experience > 0 && (
+                            <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                              <Calendar className="h-3 w-3" />
+                              {profile.years_experience} years experience
+                            </div>
+                          )}
+                      </div>
                     </div>
                   </div>
                 </CardHeader>
 
                 <CardContent className="space-y-4">
-                  {profile.location && (
-                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                      <MapPin className="h-3 w-3" />
-                      {profile.location}
-                    </div>
-                  )}
-
-                  {profile.years_experience !== undefined && profile.years_experience > 0 && (
-                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                      <Calendar className="h-3 w-3" />
-                      {profile.years_experience} years experience
-                    </div>
-                  )}
-
                   {profile.bio && (
-                    <p className="text-sm line-clamp-3">
-                      {profile.bio}
-                    </p>
+                    <p className="text-sm line-clamp-3">{profile.bio}</p>
                   )}
 
                   {/* Skills */}
@@ -325,7 +356,11 @@ export default function BrowseConnectionsPage() {
                       <p className="text-sm font-medium">Skills</p>
                       <div className="flex flex-wrap gap-1">
                         {profile.skills.slice(0, 3).map((skill, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs">
+                          <Badge
+                            key={index}
+                            variant="secondary"
+                            className="text-xs"
+                          >
                             {skill}
                           </Badge>
                         ))}
@@ -343,11 +378,17 @@ export default function BrowseConnectionsPage() {
                     <div className="space-y-2">
                       <p className="text-sm font-medium">Interests</p>
                       <div className="flex flex-wrap gap-1">
-                        {profile.interests.slice(0, 3).map((interest, index) => (
-                          <Badge key={index} variant="outline" className="text-xs">
-                            {interest}
-                          </Badge>
-                        ))}
+                        {profile.interests
+                          .slice(0, 3)
+                          .map((interest, index) => (
+                            <Badge
+                              key={index}
+                              variant="outline"
+                              className="text-xs"
+                            >
+                              {interest}
+                            </Badge>
+                          ))}
                         {profile.interests.length > 3 && (
                           <Badge variant="outline" className="text-xs">
                             +{profile.interests.length - 3} more
@@ -359,11 +400,13 @@ export default function BrowseConnectionsPage() {
 
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button 
-                        className="w-full" 
+                      <Button
+                        className="w-full"
                         onClick={() => {
                           setSelectedProfile(profile);
-                          setRequestMessage(`Hi ${profile.user_name}, I'd like to connect with you!`);
+                          setRequestMessage(
+                            `Hi ${profile.user_name}, I'd like to connect with you!`
+                          );
                         }}
                       >
                         <Users className="h-4 w-4 mr-2" />
@@ -374,22 +417,32 @@ export default function BrowseConnectionsPage() {
                       <DialogHeader>
                         <DialogTitle>Send Connection Request</DialogTitle>
                         <DialogDescription>
-                          Send a personalized message to {selectedProfile?.user_name}
+                          Send a personalized message to{" "}
+                          {selectedProfile?.user_name}
                         </DialogDescription>
                       </DialogHeader>
 
                       <div className="space-y-4">
                         <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                           <Avatar>
-                            <AvatarImage src={selectedProfile?.user_picture} alt={selectedProfile?.user_name} />
+                            <AvatarImage
+                              src={selectedProfile?.user_picture}
+                              alt={selectedProfile?.user_name}
+                            />
                             <AvatarFallback>
-                              {selectedProfile?.user_name?.charAt(0)?.toUpperCase()}
+                              {selectedProfile?.user_name
+                                ?.charAt(0)
+                                ?.toUpperCase()}
                             </AvatarFallback>
                           </Avatar>
                           <div>
-                            <p className="font-medium">{selectedProfile?.user_name}</p>
+                            <p className="font-medium">
+                              {selectedProfile?.user_name}
+                            </p>
                             <p className="text-sm text-muted-foreground">
-                              {selectedProfile?.job_title} {selectedProfile?.company && `at ${selectedProfile.company}`}
+                              {selectedProfile?.job_title}{" "}
+                              {selectedProfile?.company &&
+                                `at ${selectedProfile.company}`}
                             </p>
                           </div>
                         </div>
@@ -407,20 +460,20 @@ export default function BrowseConnectionsPage() {
                       </div>
 
                       <DialogFooter>
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           onClick={() => {
                             setSelectedProfile(null);
-                            setRequestMessage('');
+                            setRequestMessage("");
                           }}
                         >
                           Cancel
                         </Button>
-                        <Button 
+                        <Button
                           onClick={sendConnectionRequest}
                           disabled={sendingRequest || !requestMessage.trim()}
                         >
-                          {sendingRequest ? 'Sending...' : 'Send Request'}
+                          {sendingRequest ? "Sending..." : "Send Request"}
                         </Button>
                       </DialogFooter>
                     </DialogContent>
@@ -434,16 +487,21 @@ export default function BrowseConnectionsPage() {
             <Card>
               <CardContent className="text-center py-12">
                 <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-lg font-semibold mb-2">No connections found</h3>
+                <h3 className="text-lg font-semibold mb-2">
+                  No connections found
+                </h3>
                 <p className="text-muted-foreground mb-4">
-                  Try adjusting your search criteria or check back later for new professionals.
+                  Try adjusting your search criteria or check back later for new
+                  professionals.
                 </p>
-                <Button onClick={() => {
-                  setSearchTerm('');
-                  setLocationFilter('');
-                  setCompanyFilter('');
-                  loadProfiles();
-                }}>
+                <Button
+                  onClick={() => {
+                    setSearchTerm("");
+                    setLocationFilter("");
+                    setCompanyFilter("");
+                    loadProfiles();
+                  }}
+                >
                   Clear Filters
                 </Button>
               </CardContent>
