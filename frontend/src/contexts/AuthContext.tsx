@@ -113,35 +113,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const login = async () => {
-    // Use development login in local environment
-    if (import.meta.env.DEV) {
-      console.log('Using development login...');
-      try {
-        const response = await fetch(`${backendUrl}/api/auth/dev-login`, {
-          method: 'POST',
-          credentials: 'include'
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log('Dev login successful:', data);
-          if (data.success) {
-            setUser(data.data.user);
-            console.log('User logged in:', data.data.user);
-          }
-        } else {
-          console.error('Dev login failed:', response.status);
-        }
-      } catch (error) {
-        console.error('Error during dev login:', error);
-      }
-    } else {
-      // Use production OAuth
-      const redirectUrl = `${window.location.origin}/`;
-      console.log('Redirecting to OAuth with URL:', redirectUrl);
-      window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
-    }
+  const login = () => {
+    // Always use OAuth flow for authentication
+    const redirectUrl = `${window.location.origin}/`;
+    console.log('Redirecting to OAuth with URL:', redirectUrl);
+    window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
   };
 
   const logout = async () => {
