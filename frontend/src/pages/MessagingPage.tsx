@@ -9,6 +9,7 @@ import { MessageSquare, Send, ArrowLeft } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { backendUrl } from '@/config/api';
+import { formatMessageTime, formatLastMessageTime } from '@/utils/dateTime';
 
 interface Message {
   id: string;
@@ -172,50 +173,6 @@ export default function MessagingPage() {
     }
   };
 
-  const formatMessageTime = (timestamp: string) => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffInHours = (now.getTime() - date.getTime()) / (1000 * 60 * 60);
-
-    if (diffInHours < 24) {
-      return date.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-      });
-    } else if (diffInHours < 168) { // 7 days
-      return date.toLocaleDateString('en-US', {
-        weekday: 'short',
-        hour: 'numeric',
-        minute: '2-digit'
-      });
-    } else {
-      return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit'
-      });
-    }
-  };
-
-  const formatLastMessageTime = (timestamp?: string) => {
-    if (!timestamp) return '';
-    
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffInHours = (now.getTime() - date.getTime()) / (1000 * 60 * 60);
-
-    if (diffInHours < 1) {
-      return 'Just now';
-    } else if (diffInHours < 24) {
-      return `${Math.floor(diffInHours)}h ago`;
-    } else if (diffInHours < 168) {
-      return `${Math.floor(diffInHours / 24)}d ago`;
-    } else {
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    }
-  };
 
   if (loading) {
     return (

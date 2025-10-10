@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Request, status, Depends, Query
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 from auth import get_current_user
 from models import (
