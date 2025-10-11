@@ -132,6 +132,10 @@ export default function ProfilePage() {
       errors.bio = "Bio is required";
     }
 
+    if (!profile.linkedin_url?.trim()) {
+      errors.linkedin_url = "LinkedIn profile is required";
+    }
+
     return errors;
   };
 
@@ -403,16 +407,25 @@ export default function ProfilePage() {
             </div>
 
             <div>
-              <Label htmlFor="linkedin_url">LinkedIn Profile</Label>
+              <Label htmlFor="linkedin_url">
+                LinkedIn Profile <span className="text-red-500">*</span>
+              </Label>
               <Input
                 id="linkedin_url"
                 value={profile.linkedin_url || ""}
-                onChange={(e) =>
-                  setProfile({ ...profile, linkedin_url: e.target.value })
-                }
+                onChange={(e) => {
+                  setProfile({ ...profile, linkedin_url: e.target.value });
+                  clearValidationError("linkedin_url");
+                }}
                 disabled={!isEditing}
                 placeholder="https://linkedin.com/in/yourname"
+                className={validationErrors.linkedin_url ? "border-red-500" : ""}
               />
+              {validationErrors.linkedin_url && (
+                <p className="text-sm text-red-500 mt-1">
+                  {validationErrors.linkedin_url}
+                </p>
+              )}
             </div>
           </CardContent>
         </Card>

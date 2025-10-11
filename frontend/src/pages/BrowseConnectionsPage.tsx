@@ -33,6 +33,7 @@ import {
   Tag,
   ArrowBigRight,
   ArrowRight,
+  Linkedin,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { backendUrl } from "@/config/api";
@@ -327,7 +328,11 @@ export default function BrowseConnectionsPage() {
         <>
           <div className="mb-4 lg:mx-80 mx-0">
             <p className="text-sm text-muted-foreground lg:mx-8 mx-2">
-              Found <b className="text-tertiary">{profiles.length} professional{profiles.length !== 1 ? "s" : ""}</b> open for connections
+              Found{" "}
+              <b className="text-tertiary">
+                {profiles.length} professional{profiles.length !== 1 ? "s" : ""}
+              </b>{" "}
+              open for connections
             </p>
           </div>
 
@@ -349,9 +354,22 @@ export default function BrowseConnectionsPage() {
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0  ">
-                      <h3 className="font-semibold text-lg truncate">
-                        {profile.user_name}
-                      </h3>
+                      <div className="flex items-center gap-3">
+                        <h3 className="font-semibold text-lg truncate">
+                          {profile.user_name}
+                        </h3>
+                        {profile.linkedin_url && (
+                          <a
+                            href={profile.linkedin_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-tertiary/80 hover:text-tertiary/80 transition-colors"
+                            title="View LinkedIn Profile"
+                          >
+                            <Linkedin className="h-4 w-4" />
+                          </a>
+                        )}
+                      </div>
                       <div className="flex flex-col gap-0 lg:flex-row sm:gap-2 md:gap-6 flex-wrap">
                         {profile.job_title && (
                           <p className="text-sm text-muted-foreground flex items-center gap-1">
