@@ -69,23 +69,8 @@ app.include_router(api_router)
 # Configure CORS - in development, allow local origins with regex
 is_development = os.environ.get('ENVIRONMENT', 'development') == 'development'
 
-if is_development:
-    # In development, allow all localhost and local network origins
-    app.add_middleware(
-        CORSMiddleware,
-        allow_credentials=True,
-        allow_origin_regex=r"http://(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+",
-        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allow_headers=[
-            "accept",
-            "accept-language", 
-            "content-type",
-            "x-session-id",
-            "authorization",
-            "cache-control",
-            "pragma"
-        ],
-    )
+# PRODUCTION ONLY - No development mode
+# Always use specific origins for production
 else:
     # Use specific origins in production
     cors_origins = os.environ.get('CORS_ORIGINS', '').split(',')
