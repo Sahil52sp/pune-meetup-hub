@@ -8,7 +8,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import List
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Import our route modules
 from routes import auth_routes, profile_routes, connection_routes, messaging_routes
@@ -33,7 +33,7 @@ api_router = APIRouter(prefix="/api")
 class StatusCheck(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     client_name: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class StatusCheckCreate(BaseModel):
     client_name: str
@@ -75,18 +75,36 @@ if is_development:
         CORSMiddleware,
         allow_credentials=True,
         allow_origin_regex=r"http://(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+",
-        allow_methods=["*"],
-        allow_headers=["*"],
+        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allow_headers=[
+            "accept",
+            "accept-language", 
+            "content-type",
+            "x-session-id",
+            "authorization",
+            "cache-control",
+            "pragma"
+        ],
     )
 else:
     # Use specific origins in production
     cors_origins = os.environ.get('CORS_ORIGINS', '').split(',')
+    # Clean up any whitespace from the origins
+    cors_origins = [origin.strip() for origin in cors_origins if origin.strip()]
     app.add_middleware(
         CORSMiddleware,
         allow_credentials=True,
         allow_origins=cors_origins,
-        allow_methods=["*"],
-        allow_headers=["*"],
+        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allow_headers=[
+            "accept",
+            "accept-language", 
+            "content-type",
+            "x-session-id",
+            "authorization",
+            "cache-control",
+            "pragma"
+        ],
     )
 
 # Configure logging

@@ -1,13 +1,14 @@
 from fastapi import APIRouter, HTTPException, Request, status, Depends, Query
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 from auth import get_current_user
 from models import (
     User, ConnectionRequest, ConnectionRequestCreate, ConnectionRequestResponse,
     ConnectionRequestDetail, ConnectionStatus, Conversation, APIResponse
 )
+from email_service import email_service
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +65,26 @@ async def send_connection_request(
         )
         
         await db.connection_requests.insert_one(connection_request.model_dump())
+        
+        # Get receiver user details for email
+        receiver_user = await db.users.find_one({"id": request_data.receiver_id})
+        sender_user = await db.users.find_one({"id": current_user.id})
+        # Send email notification
+        if receiver_user:
+            try:
+                # Get the host from the request headers
+                request_host = request.headers.get("host", "")
+                
+                await email_service.send_connection_request_email(
+                    receiver_email=receiver_user.get("email"),
+                    receiver_name=receiver_user.get("name", "User"),
+                    sender_name=sender_user.get("name", "Someone"),
+                    message=request_data.message,
+                    request_host=request_host
+                )
+                logger.info(f"Email notification sent for connection request from {current_user.id} to {request_data.receiver_id}")
+            except Exception as e:
+                logger.error(f"Failed to send email notification: {str(e)}")
         
         return APIResponse(
             success=True,
@@ -276,12 +297,12 @@ async def respond_to_connection_request(
             {
                 "$set": {
                     "status": response_data.status,
-                    "responded_at": datetime.utcnow()
+                    "responded_at": datetime.now(timezone.utc)
                 }
             }
         )
         
-        # If accepted, create conversation
+        # If accepted, create conversation and send email notification
         if response_data.status == ConnectionStatus.ACCEPTED:
             # Check if conversation already exists
             existing_conversation = await db.conversations.find_one({
@@ -303,6 +324,25 @@ async def respond_to_connection_request(
                     user2_id=connection_request["receiver_id"]
                 )
                 await db.conversations.insert_one(conversation.model_dump())
+            
+            # Send email notification to the original sender
+            sender_user = await db.users.find_one({"id": connection_request["sender_id"]})
+            accepter_user = await db.users.find_one({"id": connection_request["receiver_id"]})
+            
+            if sender_user and accepter_user:
+                try:
+                    # Get the host from the request headers
+                    request_host = request.headers.get("host", "")
+                    
+                    await email_service.send_connection_accepted_email(
+                        sender_email=sender_user.get("email"),
+                        sender_name=sender_user.get("name", "User"),
+                        accepter_name=accepter_user.get("name", "Someone"),
+                        request_host=request_host
+                    )
+                    logger.info(f"Connection accepted email sent to {connection_request['sender_id']}")
+                except Exception as e:
+                    logger.error(f"Failed to send connection accepted email: {str(e)}")
         
         return APIResponse(
             success=True,

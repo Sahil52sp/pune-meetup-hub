@@ -1,1 +1,454 @@
-[{"_id":{"$oid":"68e2378f3ac588c50cb8921d"},"id":"94ea2547-93a8-4c02-986b-9682a678efdf","user_id":"6d5b9424-7c10-4a9a-a590-94c884c7c2a4","job_title":"Desinger","company":"nudgebee","bio":"","location":"Pune","linkedin_url":"","years_experience":2,"skills":["UX Designer","UI Developer"],"interests":["Sports","Singing"],"is_open_for_connection":true,"contact_preferences":"linkedin","created_at":{"$date":"2025-10-05T09:17:03.527Z"},"updated_at":{"$date":"2025-10-05T09:17:03.527Z"}}]
+[
+  {
+    "_id": {
+      "$oid": "68e2378f3ac588c50cb8921d"
+    },
+    "id": "94ea2547-93a8-4c02-986b-9682a678efdf",
+    "user_id": "6d5b9424-7c10-4a9a-a590-94c884c7c2a4",
+    "job_title": "UI/UX Designer",
+    "company": "nudgebee",
+    "bio": "Passionate designer focused on creating intuitive and beautiful user experiences. Love collaborating with developers and product teams.",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/sahilpatil",
+    "years_experience": 2,
+    "skills": [
+      "UX Design",
+      "UI Development",
+      "Figma",
+      "Adobe XD",
+      "Prototyping"
+    ],
+    "interests": [
+      "Sports",
+      "Singing",
+      "Photography"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "linkedin",
+    "created_at": {
+      "$date": "2025-10-05T09:17:03.527Z"
+    },
+    "updated_at": {
+      "$date": "2025-10-05T09:17:03.527Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a103ac588c50cb8922c"
+    },
+    "id": "profile-001",
+    "user_id": "a1b2c3d4-e5f6-4a5b-8c9d-1e2f3a4b5c6d",
+    "job_title": "Senior Software Engineer",
+    "company": "Persistent Systems",
+    "bio": "Full-stack developer with expertise in React and Node.js. Passionate about building scalable web applications and mentoring junior developers. Always eager to learn new technologies.",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/priyasharma",
+    "years_experience": 6,
+    "skills": [
+      "React",
+      "Node.js",
+      "TypeScript",
+      "MongoDB",
+      "AWS",
+      "Docker"
+    ],
+    "interests": [
+      "Tech Meetups",
+      "Reading",
+      "Yoga",
+      "Traveling"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "both",
+    "created_at": {
+      "$date": "2025-10-01T10:35:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-10-01T10:35:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a113ac588c50cb8922d"
+    },
+    "id": "profile-002",
+    "user_id": "b2c3d4e5-f6a7-4b5c-9d1e-2f3a4b5c6d7e",
+    "job_title": "DevOps Engineer",
+    "company": "Infosys",
+    "bio": "Specializing in CI/CD pipelines, Kubernetes, and cloud infrastructure. Looking to connect with fellow DevOps enthusiasts and share knowledge about automation.",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/rahulverma",
+    "years_experience": 4,
+    "skills": [
+      "Kubernetes",
+      "Jenkins",
+      "Docker",
+      "Terraform",
+      "Azure",
+      "Linux"
+    ],
+    "interests": [
+      "Hiking",
+      "Automation",
+      "Open Source",
+      "Cricket"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "email",
+    "created_at": {
+      "$date": "2025-10-02T11:20:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-10-02T11:20:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a123ac588c50cb8922e"
+    },
+    "id": "profile-003",
+    "user_id": "c3d4e5f6-a7b8-4c5d-1e2f-3a4b5c6d7e8f",
+    "job_title": "Product Manager",
+    "company": "Barclays",
+    "bio": "Product manager with a background in software development. Love building products that solve real user problems. Looking for technical co-founders and collaborators.",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/anjalideshmukh",
+    "years_experience": 5,
+    "skills": [
+      "Product Strategy",
+      "Agile",
+      "User Research",
+      "Data Analytics",
+      "Roadmapping"
+    ],
+    "interests": [
+      "Startups",
+      "Product Design",
+      "Cooking",
+      "Music"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "both",
+    "created_at": {
+      "$date": "2025-09-28T14:25:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-09-28T14:25:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a133ac588c50cb8922f"
+    },
+    "id": "profile-004",
+    "user_id": "d4e5f6a7-b8c9-4d5e-2f3a-4b5c6d7e8f9g",
+    "job_title": "Data Scientist",
+    "company": "Fractal Analytics",
+    "bio": "Machine learning enthusiast working on predictive analytics and NLP projects. Interested in connecting with data professionals and attending AI/ML meetups in Pune.",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/arjunkulkarni",
+    "years_experience": 3,
+    "skills": [
+      "Python",
+      "Machine Learning",
+      "TensorFlow",
+      "Pandas",
+      "SQL",
+      "Data Visualization"
+    ],
+    "interests": [
+      "AI/ML",
+      "Research",
+      "Chess",
+      "Basketball"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "linkedin",
+    "created_at": {
+      "$date": "2025-09-30T09:50:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-09-30T09:50:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a143ac588c50cb89230"
+    },
+    "id": "profile-005",
+    "user_id": "e5f6a7b8-c9d1-4e5f-3a4b-5c6d7e8f9g0h",
+    "job_title": "Frontend Developer",
+    "company": "Druva",
+    "bio": "Creating beautiful and performant web interfaces with React and Vue. Love attending hackathons and contributing to open-source projects. Always up for coffee and tech discussions!",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/nehajoshi",
+    "years_experience": 3,
+    "skills": [
+      "React",
+      "Vue.js",
+      "JavaScript",
+      "CSS",
+      "HTML5",
+      "Tailwind CSS"
+    ],
+    "interests": [
+      "Web Development",
+      "Photography",
+      "Painting",
+      "Blogging"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "both",
+    "created_at": {
+      "$date": "2025-10-03T16:05:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-10-03T16:05:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a153ac588c50cb89231"
+    },
+    "id": "profile-006",
+    "user_id": "f6a7b8c9-d1e2-4f5a-4b5c-6d7e8f9g0h1i",
+    "job_title": "Technical Architect",
+    "company": "TCS",
+    "bio": "10+ years of experience in enterprise software architecture. Expertise in microservices, system design, and cloud solutions. Mentor at various tech communities in Pune.",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/vikrammehta",
+    "years_experience": 12,
+    "skills": [
+      "System Design",
+      "Microservices",
+      "Java",
+      "Spring Boot",
+      "Kafka",
+      "Redis"
+    ],
+    "interests": [
+      "Tech Leadership",
+      "Mentoring",
+      "Running",
+      "Travel"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "linkedin",
+    "created_at": {
+      "$date": "2025-09-25T12:35:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-09-25T12:35:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a163ac588c50cb89232"
+    },
+    "id": "profile-007",
+    "user_id": "a7b8c9d1-e2f3-4a5b-5c6d-7e8f9g0h1i2j",
+    "job_title": "Mobile App Developer",
+    "company": "Thoughtworks",
+    "bio": "Building native and cross-platform mobile applications. Passionate about mobile UX and performance optimization. Looking to collaborate on innovative app ideas.",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/kavyanair",
+    "years_experience": 4,
+    "skills": [
+      "React Native",
+      "Flutter",
+      "iOS",
+      "Android",
+      "Swift",
+      "Kotlin"
+    ],
+    "interests": [
+      "Mobile Tech",
+      "Fitness",
+      "Dancing",
+      "Podcasts"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "both",
+    "created_at": {
+      "$date": "2025-10-04T13:20:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-10-04T13:20:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a173ac588c50cb89233"
+    },
+    "id": "profile-008",
+    "user_id": "b8c9d1e2-f3a4-4b5c-6d7e-8f9g0h1i2j3k",
+    "job_title": "Backend Engineer",
+    "company": "Zomato",
+    "bio": "Passionate about building robust APIs and scalable backend systems. Experience with Python and Go. Active in the Pune Python community and regularly speak at meetups.",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/amitpatel",
+    "years_experience": 5,
+    "skills": [
+      "Python",
+      "Django",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Go"
+    ],
+    "interests": [
+      "Backend Development",
+      "Public Speaking",
+      "Gaming",
+      "Badminton"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "email",
+    "created_at": {
+      "$date": "2025-09-29T10:05:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-09-29T10:05:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a183ac588c50cb89234"
+    },
+    "id": "profile-009",
+    "user_id": "c9d1e2f3-a4b5-4c6d-7e8f-9g0h1i2j3k4l",
+    "job_title": "QA Automation Engineer",
+    "company": "Wipro",
+    "bio": "Quality enthusiast specializing in test automation frameworks. Building reliable testing pipelines with Selenium and Cypress. Let's connect to discuss testing best practices!",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/snehareddy",
+    "years_experience": 4,
+    "skills": [
+      "Selenium",
+      "Cypress",
+      "Jest",
+      "TestNG",
+      "API Testing",
+      "Performance Testing"
+    ],
+    "interests": [
+      "Testing",
+      "Automation",
+      "Gardening",
+      "Movies"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "both",
+    "created_at": {
+      "$date": "2025-10-06T11:35:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-10-06T11:35:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a193ac588c50cb89235"
+    },
+    "id": "profile-010",
+    "user_id": "d1e2f3a4-b5c6-4d7e-8f9g-0h1i2j3k4l5m",
+    "job_title": "Cybersecurity Analyst",
+    "company": "Quick Heal",
+    "bio": "Protecting digital assets and building secure systems. Interested in ethical hacking, penetration testing, and security audits. Always learning about new security threats.",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/rohanbhosale",
+    "years_experience": 3,
+    "skills": [
+      "Network Security",
+      "Penetration Testing",
+      "SIEM",
+      "Python",
+      "Linux",
+      "Cryptography"
+    ],
+    "interests": [
+      "Cybersecurity",
+      "CTF Challenges",
+      "Motorcycles",
+      "Trekking"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "linkedin",
+    "created_at": {
+      "$date": "2025-09-27T15:50:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-09-27T15:50:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a1a3ac588c50cb89236"
+    },
+    "id": "profile-011",
+    "user_id": "e2f3a4b5-c6d7-4e8f-9g0h-1i2j3k4l5m6n",
+    "job_title": "Business Analyst",
+    "company": "Accenture",
+    "bio": "Bridge between business and technology. Experienced in requirements gathering, process optimization, and stakeholder management. Looking to network with tech professionals.",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/poojakale",
+    "years_experience": 5,
+    "skills": [
+      "Business Analysis",
+      "SQL",
+      "Power BI",
+      "Agile",
+      "JIRA",
+      "Process Mapping"
+    ],
+    "interests": [
+      "Business Strategy",
+      "Data Analysis",
+      "Reading",
+      "Volunteering"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "both",
+    "created_at": {
+      "$date": "2025-10-05T14:25:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-10-05T14:25:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "68e23a1b3ac588c50cb89237"
+    },
+    "id": "profile-012",
+    "user_id": "f3a4b5c6-d7e8-4f9g-0h1i-2j3k4l5m6n7o",
+    "job_title": "Blockchain Developer",
+    "company": "Freelance",
+    "bio": "Smart contract developer working with Ethereum and Solidity. Building decentralized applications and exploring Web3 technologies. Let's discuss blockchain and crypto!",
+    "location": "Pune",
+    "linkedin_url": "https://linkedin.com/in/karanjadhav",
+    "years_experience": 2,
+    "skills": [
+      "Solidity",
+      "Ethereum",
+      "Web3.js",
+      "Smart Contracts",
+      "React",
+      "Node.js"
+    ],
+    "interests": [
+      "Blockchain",
+      "Cryptocurrency",
+      "Gaming",
+      "Music Production"
+    ],
+    "is_open_for_connection": true,
+    "contact_preferences": "email",
+    "created_at": {
+      "$date": "2025-09-26T09:05:00.000Z"
+    },
+    "updated_at": {
+      "$date": "2025-09-26T09:05:00.000Z"
+    }
+  }
+]

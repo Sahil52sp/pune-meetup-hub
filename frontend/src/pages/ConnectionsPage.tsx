@@ -9,6 +9,7 @@ import { Users, Clock, Check, X, MessageSquare, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { backendUrl } from '@/config/api';
 import { Link } from 'react-router-dom';
+import { formatDate } from '@/utils/dateTime';
 
 interface ConnectionRequest {
   id: string;
@@ -112,13 +113,6 @@ export default function ConnectionsPage() {
     }
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -191,14 +185,14 @@ export default function ConnectionsPage() {
                     </Avatar>
                     
                     <div className="flex-1 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold">{request.sender_name}</h3>
-                          <p className="text-sm text-muted-foreground">{request.sender_email}</p>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold truncate">{request.sender_name}</h3>
+                          <p className="text-sm text-muted-foreground truncate">{request.sender_email}</p>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                           {getStatusBadge(request.status)}
-                          <span className="text-sm text-muted-foreground">
+                          <span className="text-xs sm:text-sm text-muted-foreground">
                             {formatDate(request.created_at)}
                           </span>
                         </div>
@@ -209,11 +203,12 @@ export default function ConnectionsPage() {
                       </div>
 
                       {request.status === 'pending' && (
-                        <div className="flex gap-2 pt-2">
+                        <div className="flex flex-col sm:flex-row gap-2 pt-2">
                           <Button
                             size="sm"
                             onClick={() => respondToRequest(request.id, 'accepted')}
                             disabled={respondingTo === request.id}
+                            className="w-full sm:w-auto"
                           >
                             <Check className="h-4 w-4 mr-1" />
                             Accept
@@ -223,6 +218,7 @@ export default function ConnectionsPage() {
                             variant="outline"
                             onClick={() => respondToRequest(request.id, 'rejected')}
                             disabled={respondingTo === request.id}
+                            className="w-full sm:w-auto"
                           >
                             <X className="h-4 w-4 mr-1" />
                             Decline

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import uuid
 from enum import Enum
 
@@ -21,7 +21,7 @@ class User(BaseModel):
     email: str
     name: str
     picture: Optional[str] = None
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     is_active: bool = True
 
 
@@ -36,7 +36,7 @@ class UserSession(BaseModel):
     user_id: str
     session_token: str
     expires_at: datetime
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     is_active: bool = True
 
 
@@ -56,8 +56,8 @@ class UserProfile(BaseModel):
     interests: List[str] = Field(default_factory=list)
     is_open_for_connection: bool = True
     contact_preferences: Optional[str] = None  # "email", "linkedin", "both"
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class UserProfileCreate(BaseModel):
@@ -123,7 +123,7 @@ class ConnectionRequest(BaseModel):
     receiver_id: str
     message: str
     status: ConnectionStatus = ConnectionStatus.PENDING
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     responded_at: Optional[datetime] = None
 
 
@@ -160,7 +160,7 @@ class Conversation(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     user1_id: str
     user2_id: str
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     last_message_at: Optional[datetime] = None
     is_active: bool = True
 
@@ -172,7 +172,7 @@ class Message(BaseModel):
     conversation_id: str
     sender_id: str
     content: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     is_read: bool = False
 
 

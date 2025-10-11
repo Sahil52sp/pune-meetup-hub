@@ -3,6 +3,7 @@ import { Box } from "@/components/ui/box";
 import { Button } from "@/components/ui/button";
 import { Event } from "@/types/event";
 import { useEffect } from "react";
+import { formatEventDate, formatEventTime } from "@/utils/dateTime";
 
 interface EventDetailPopupProps {
   event: Event | null;
@@ -43,26 +44,6 @@ export function EventDetailPopup({
 
   if (!isOpen || !event) return null;
 
-  const formatDate = (date: string) => {
-    const eventDate = new Date(date);
-    return eventDate.toLocaleDateString("en-US", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    });
-  };
-
-  const formatTime = (time: string) => {
-    const [hours, minutes] = time.split(":");
-    const date = new Date();
-    date.setHours(parseInt(hours), parseInt(minutes));
-    return date.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    });
-  };
 
   return (
     <Box className="fixed inset-0 z-50 flex items-center justify-center">
@@ -123,7 +104,7 @@ export function EventDetailPopup({
                       Date & Time
                     </Box>
                     <Box className="font-ndot text-xs sm:text-sm">
-                      {formatDate(event.date)} | {formatTime(event.time)}
+                      {formatEventDate(event.date)} | {formatEventTime(event.time)}
                     </Box>
                   </Box>
                 </Box>
