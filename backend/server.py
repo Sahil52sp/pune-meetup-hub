@@ -17,7 +17,7 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # Import database
-from database import get_database, database as db
+from database import get_database, database as db, client
 
 # Create the main app without a prefix
 app = FastAPI(title="Meetup Network API", version="1.0.0")
