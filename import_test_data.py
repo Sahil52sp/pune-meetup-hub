@@ -15,8 +15,9 @@ from bson import ObjectId
 backend_dir = Path(__file__).parent / 'backend'
 load_dotenv(backend_dir / '.env')
 
-# MongoDB connection
-mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+# MongoDB connection - Force Atlas only
+ATLAS_URL = "mongodb+srv://PuneMeetupAdmin:PuneMeetupAdmin@punemeetupsinitial.ntwdrrb.mongodb.net/pune_meetup_hub?retryWrites=true&w=majority"
+mongo_url = os.environ.get('MONGO_URL', ATLAS_URL)
 db_name = os.environ.get('DB_NAME', 'pune_meetup_hub')
 
 print(f"Connecting to MongoDB at: {mongo_url}")
