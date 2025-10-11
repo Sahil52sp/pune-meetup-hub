@@ -86,14 +86,14 @@ export function Header() {
           
           {isAuthenticated && (
             <>
-              <Link
+              {/* <Link
                 to="/profile"
                 className={`text-sm poppins-reg ${
                   isActive("/profile") ? "nav-link-active" : "nav-link-inactive"
                 }`}
               >
                 My Profile
-              </Link>
+              </Link> */}
               <Link
                 to="/browse"
                 className={`text-sm poppins-reg ${
@@ -102,14 +102,14 @@ export function Header() {
               >
                 Find Connections
               </Link>
-              {/* <Link
+              <Link
                 to="/connections"
                 className={`text-sm poppins-reg ${
                   isActive("/connections") ? "nav-link-active" : "nav-link-inactive"
                 }`}
               >
                 My Connections
-              </Link> */}
+              </Link>
               <Link
                 to="/messaging"
                 className={`text-sm poppins-reg ${
@@ -235,7 +235,7 @@ export function Header() {
             
             {isAuthenticated ? (
               <>
-                <Link
+                {/* <Link
                   to="/profile"
                   onClick={handleLinkClick}
                   className={`text-lg poppins-reg ${
@@ -243,7 +243,7 @@ export function Header() {
                   }`}
                 >
                   My Profile
-                </Link>
+                </Link> */}
                 <Link
                   to="/browse"
                   onClick={handleLinkClick}

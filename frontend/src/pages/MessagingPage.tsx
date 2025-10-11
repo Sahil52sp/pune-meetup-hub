@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Box } from '@/components/ui/box';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import { MessageSquare, Send, ArrowLeft } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { backendUrl } from '@/config/api';
+import { formatMessageTime, formatLastMessageTime } from '@/utils/dateTime';
 
 interface Message {
   id: string;
@@ -42,8 +44,10 @@ export default function MessagingPage() {
   const [sendingMessage, setSendingMessage] = useState(false);
   const [messagesLoading, setMessagesLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const urlHandledRef = useRef(false);
   const { user } = useAuth();
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     loadConversations();
@@ -55,6 +59,35 @@ export default function MessagingPage() {
     }
   }, [selectedConversation]);
 
+  // Handle conversation parameter from URL (e.g., from email links)
+  useEffect(() => {
+    const conversationId = searchParams.get('conversation');
+    console.log('URL conversation ID:', conversationId);
+    console.log('Conversations loaded:', conversations.length);
+    console.log('Loading state:', loading);
+    console.log('URL handled:', urlHandledRef.current);
+    
+    if (conversationId && conversations.length > 0 && !loading && !urlHandledRef.current) {
+      const targetConversation = conversations.find(conv => conv.id === conversationId);
+      console.log('Target conversation found:', !!targetConversation);
+      
+      if (targetConversation) {
+        console.log('Setting selected conversation from URL');
+        setSelectedConversation(targetConversation);
+        urlHandledRef.current = true;
+      } else {
+        console.log('Conversation not found, showing error');
+        // If conversation not found, show a toast
+        toast({
+          title: "Conversation not found",
+          description: "The conversation you're looking for might not exist or you may not have access to it.",
+          variant: "destructive"
+        });
+        urlHandledRef.current = true;
+      }
+    }
+  }, [conversations, searchParams, toast, loading]);
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -65,26 +98,36 @@ export default function MessagingPage() {
 
   const loadConversations = async () => {
     try {
+      console.log('Loading conversations...');
       const response = await fetch(`${backendUrl}/api/conversations`, {
         credentials: 'include'
       });
 
+      console.log('Conversations response status:', response.status);
+      
       if (response.ok) {
         const data = await response.json();
+        console.log('Conversations data:', data);
         if (data.success) {
           setConversations(data.data.conversations);
+          console.log('Set conversations:', data.data.conversations.length, 'items');
+        } else {
+          console.error('API returned unsuccessful response:', data);
         }
       } else {
-        throw new Error('Failed to load conversations');
+        const errorText = await response.text();
+        console.error('Response not ok:', response.status, errorText);
+        throw new Error(`Failed to load conversations: ${response.status}`);
       }
     } catch (error) {
       console.error('Error loading conversations:', error);
       toast({
         title: "Error",
-        description: "Failed to load conversations",
+        description: "Failed to load conversations. Please check your connection and try again.",
         variant: "destructive"
       });
     } finally {
+      console.log('Setting loading to false');
       setLoading(false);
     }
   };
@@ -172,50 +215,6 @@ export default function MessagingPage() {
     }
   };
 
-  const formatMessageTime = (timestamp: string) => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffInHours = (now.getTime() - date.getTime()) / (1000 * 60 * 60);
-
-    if (diffInHours < 24) {
-      return date.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-      });
-    } else if (diffInHours < 168) { // 7 days
-      return date.toLocaleDateString('en-US', {
-        weekday: 'short',
-        hour: 'numeric',
-        minute: '2-digit'
-      });
-    } else {
-      return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit'
-      });
-    }
-  };
-
-  const formatLastMessageTime = (timestamp?: string) => {
-    if (!timestamp) return '';
-    
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffInHours = (now.getTime() - date.getTime()) / (1000 * 60 * 60);
-
-    if (diffInHours < 1) {
-      return 'Just now';
-    } else if (diffInHours < 24) {
-      return `${Math.floor(diffInHours)}h ago`;
-    } else if (diffInHours < 168) {
-      return `${Math.floor(diffInHours / 24)}d ago`;
-    } else {
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    }
-  };
 
   if (loading) {
     return (
