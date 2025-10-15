@@ -17,7 +17,7 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # Import database
-from database import get_database, database as db
+from database import get_database, database as db, client
 
 # Create the main app without a prefix
 app = FastAPI(title="Meetup Network API", version="1.0.0")
@@ -69,43 +69,29 @@ app.include_router(api_router)
 # Configure CORS - in development, allow local origins with regex
 is_development = os.environ.get('ENVIRONMENT', 'development') == 'development'
 
-if is_development:
-    # In development, allow all localhost and local network origins
-    app.add_middleware(
-        CORSMiddleware,
-        allow_credentials=True,
-        allow_origin_regex=r"http://(localhost|127\.0\.0\.1|192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+):\d+",
-        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allow_headers=[
-            "accept",
-            "accept-language", 
-            "content-type",
-            "x-session-id",
-            "authorization",
-            "cache-control",
-            "pragma"
-        ],
-    )
-else:
-    # Use specific origins in production
-    cors_origins = os.environ.get('CORS_ORIGINS', '').split(',')
-    # Clean up any whitespace from the origins
-    cors_origins = [origin.strip() for origin in cors_origins if origin.strip()]
-    app.add_middleware(
-        CORSMiddleware,
-        allow_credentials=True,
-        allow_origins=cors_origins,
-        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allow_headers=[
-            "accept",
-            "accept-language", 
-            "content-type",
-            "x-session-id",
-            "authorization",
-            "cache-control",
-            "pragma"
-        ],
-    )
+# PRODUCTION ONLY - No development mode
+# Always use specific origins for production
+# PRODUCTION CORS - Hardcoded for your domain
+cors_origins = [
+    "https://punemeetups.in",
+    "https://meetup-network-1.preview.emergentagent.com"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=cors_origins,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=[
+        "accept",
+        "accept-language", 
+        "content-type",
+        "x-session-id",
+        "authorization",
+        "cache-control",
+        "pragma"
+    ],
+)
 
 # Configure logging
 logging.basicConfig(
