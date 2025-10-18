@@ -522,6 +522,9 @@ class APITester:
             test_results.append(await self.test_auth_session_with_invalid_header())
             test_results.append(await self.test_auth_me_without_token())
             
+            # Test onboarding without authentication
+            test_results.append(await self.test_onboarding_complete_without_auth())
+            
             # Test profile endpoints without auth
             test_results.append(await self.test_profile_create_without_auth())
             test_results.append(await self.test_profile_get_without_auth())
@@ -534,6 +537,24 @@ class APITester:
             # Test messaging endpoints without auth
             test_results.append(await self.test_messaging_conversations_without_auth())
             test_results.append(await self.test_messaging_send_without_auth())
+            
+            print("\n" + "=" * 60)
+            print("🔐 AUTHENTICATED ONBOARDING TESTS")
+            print("=" * 60)
+            
+            # Authenticate test user for onboarding tests
+            auth_success = await self.authenticate_test_user()
+            if auth_success:
+                # Test onboarding flow with authentication
+                test_results.append(await self.test_auth_me_includes_onboarding_status())
+                test_results.append(await self.test_profile_creation_with_onboarding_data())
+                test_results.append(await self.test_complete_onboarding_endpoint())
+                test_results.append(await self.test_onboarding_status_after_completion())
+                test_results.append(await self.test_onboarding_idempotency())
+            else:
+                print("❌ Could not authenticate test user - skipping authenticated onboarding tests")
+                # Add 5 failed tests for the skipped onboarding tests
+                test_results.extend([False] * 5)
             
         finally:
             await self.cleanup_session()
