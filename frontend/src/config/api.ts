@@ -2,9 +2,10 @@
 // This file centralizes the backend URL configuration
 
 export const API_CONFIG = {
-  // Use environment variable if set, otherwise auto-detect based on dev/prod mode
+  // Use environment variable if set, otherwise use preview URL
   baseURL: import.meta.env.VITE_BACKEND_URL || 
-    (import.meta.env.DEV ? 'http://localhost:8000' : 'https://techconnect-15.preview.emergentagent.com'),
+    import.meta.env.REACT_APP_BACKEND_URL || 
+    'https://techconnect-15.preview.emergentagent.com',
   
   // Timeout for API requests (in milliseconds)
   timeout: 30000,
