@@ -95,14 +95,24 @@ class UserProfileCreate(BaseModel):
 
 
 class UserProfileUpdate(BaseModel):
-    job_title: Optional[str] = None
+    # Basic Info (Step 2)
+    job_title: Optional[str] = None  # Designation
     company: Optional[str] = None
+    age: Optional[int] = None
+    years_experience: Optional[int] = None
+    # Skills & Expertise (Step 3)
+    skills: Optional[List[str]] = None  # What you are good at
+    expertise: Optional[str] = None  # What do you do
+    # Meeting Preferences (Step 4)
+    meeting_preferences: Optional[List[str]] = None  # Where prefer to meet
+    # Interests (Step 5)
+    interests: Optional[List[str]] = None  # Free time activities
+    # Future Goals (Step 6)
+    future_goals: Optional[str] = None  # Where you see yourself in 5 years
+    # Legacy fields
     bio: Optional[str] = None
     location: Optional[str] = None
     linkedin_url: Optional[str] = None
-    years_experience: Optional[int] = None
-    skills: Optional[List[str]] = None
-    interests: Optional[List[str]] = None
     is_open_for_connection: Optional[bool] = None
     contact_preferences: Optional[str] = None
 
