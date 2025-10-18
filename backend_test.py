@@ -316,6 +316,191 @@ class APITester:
         self.print_test_result("Database connection via status endpoint", success, details)
         return success
     
+    async def authenticate_test_user(self):
+        """Authenticate a test user using dev-login endpoint"""
+        print("🔍 Setting up authenticated test user...")
+        
+        response = await self.make_request("POST", "/auth/dev-login")
+        
+        if response["status"] == 200:
+            # Extract session token from cookies
+            cookies = response.get("cookies", {})
+            if "session_token" in cookies:
+                self.session_token = cookies["session_token"]
+                self.user_data = response["data"]["data"]["user"]
+                print(f"   ✅ Authenticated as: {self.user_data['email']}")
+                return True
+            else:
+                print("   ❌ No session token in response")
+                return False
+        else:
+            print(f"   ❌ Dev login failed: {response['status']}")
+            return False
+    
+    async def test_onboarding_complete_without_auth(self):
+        """Test complete onboarding endpoint without authentication"""
+        print("🔍 Testing Onboarding - Complete onboarding without auth")
+        
+        response = await self.make_request("POST", "/auth/complete-onboarding")
+        
+        success = response["status"] == 401
+        details = f"Status: {response['status']}, Expected: 401"
+        if not success and response.get("data"):
+            details += f", Response: {response['data']}"
+            
+        self.print_test_result("Complete onboarding without authentication", success, details)
+        return success
+    
+    async def test_auth_me_includes_onboarding_status(self):
+        """Test /auth/me includes onboarding_completed field"""
+        print("🔍 Testing Onboarding - Auth /me includes onboarding status")
+        
+        if not self.session_token:
+            self.print_test_result("Auth /me includes onboarding status", False, "No authenticated session available")
+            return False
+        
+        cookies = {"session_token": self.session_token}
+        response = await self.make_request("GET", "/auth/me", cookies=cookies)
+        
+        success = False
+        details = f"Status: {response['status']}"
+        
+        if response["status"] == 200:
+            user_data = response["data"].get("data", {}).get("user", {})
+            has_onboarding_field = "onboarding_completed" in user_data
+            onboarding_status = user_data.get("onboarding_completed", None)
+            
+            success = has_onboarding_field
+            details += f", Has onboarding_completed field: {has_onboarding_field}"
+            if has_onboarding_field:
+                details += f", Value: {onboarding_status}"
+        else:
+            details += f", Response: {response.get('data', 'N/A')}"
+            
+        self.print_test_result("Auth /me includes onboarding status", success, details)
+        return success
+    
+    async def test_profile_creation_with_onboarding_data(self):
+        """Test profile creation with all onboarding fields"""
+        print("🔍 Testing Onboarding - Profile creation with onboarding data")
+        
+        if not self.session_token:
+            self.print_test_result("Profile creation with onboarding data", False, "No authenticated session available")
+            return False
+        
+        # Comprehensive onboarding profile data
+        profile_data = {
+            # Basic Info (Step 2)
+            "job_title": "Senior Software Engineer",
+            "company": "TechCorp Solutions",
+            "age": 28,
+            "years_experience": 5,
+            # Skills & Expertise (Step 3)
+            "skills": ["Python", "JavaScript", "React", "FastAPI", "MongoDB"],
+            "expertise": "Full-stack web development with focus on backend APIs",
+            # Meeting Preferences (Step 4)
+            "meeting_preferences": ["Coffee shops", "Co-working spaces", "Online video calls"],
+            # Interests (Step 5)
+            "interests": ["Machine Learning", "Open Source", "Tech Meetups", "Photography"],
+            # Future Goals (Step 6)
+            "future_goals": "I want to become a tech lead and contribute to innovative AI projects that make a positive impact on society",
+            # Additional fields
+            "bio": "Passionate developer who loves building scalable applications",
+            "location": "San Francisco, CA",
+            "is_open_for_connection": True
+        }
+        
+        cookies = {"session_token": self.session_token}
+        response = await self.make_request("POST", "/profile", data=profile_data, cookies=cookies)
+        
+        success = response["status"] == 200
+        details = f"Status: {response['status']}, Expected: 200"
+        
+        if success:
+            profile_response = response["data"].get("data", {}).get("profile", {})
+            # Verify key onboarding fields are saved
+            key_fields = ["job_title", "company", "skills", "expertise", "meeting_preferences", "interests", "future_goals"]
+            saved_fields = [field for field in key_fields if profile_response.get(field)]
+            details += f", Saved onboarding fields: {len(saved_fields)}/{len(key_fields)}"
+            
+            # Verify is_open_for_connection defaults to true
+            is_open = profile_response.get("is_open_for_connection", False)
+            details += f", is_open_for_connection: {is_open}"
+        else:
+            details += f", Response: {response.get('data', 'N/A')}"
+            
+        self.print_test_result("Profile creation with onboarding data", success, details)
+        return success
+    
+    async def test_complete_onboarding_endpoint(self):
+        """Test complete onboarding endpoint with authentication"""
+        print("🔍 Testing Onboarding - Complete onboarding endpoint")
+        
+        if not self.session_token:
+            self.print_test_result("Complete onboarding endpoint", False, "No authenticated session available")
+            return False
+        
+        cookies = {"session_token": self.session_token}
+        response = await self.make_request("POST", "/auth/complete-onboarding", cookies=cookies)
+        
+        success = response["status"] == 200
+        details = f"Status: {response['status']}, Expected: 200"
+        
+        if success:
+            message = response["data"].get("message", "")
+            details += f", Message: {message}"
+        else:
+            details += f", Response: {response.get('data', 'N/A')}"
+            
+        self.print_test_result("Complete onboarding endpoint", success, details)
+        return success
+    
+    async def test_onboarding_status_after_completion(self):
+        """Test that onboarding_completed is true after calling complete-onboarding"""
+        print("🔍 Testing Onboarding - Status after completion")
+        
+        if not self.session_token:
+            self.print_test_result("Onboarding status after completion", False, "No authenticated session available")
+            return False
+        
+        cookies = {"session_token": self.session_token}
+        response = await self.make_request("GET", "/auth/me", cookies=cookies)
+        
+        success = False
+        details = f"Status: {response['status']}"
+        
+        if response["status"] == 200:
+            user_data = response["data"].get("data", {}).get("user", {})
+            onboarding_completed = user_data.get("onboarding_completed", False)
+            
+            success = onboarding_completed is True
+            details += f", onboarding_completed: {onboarding_completed}"
+        else:
+            details += f", Response: {response.get('data', 'N/A')}"
+            
+        self.print_test_result("Onboarding status after completion", success, details)
+        return success
+    
+    async def test_onboarding_idempotency(self):
+        """Test that calling complete-onboarding multiple times is safe"""
+        print("🔍 Testing Onboarding - Idempotency (multiple calls)")
+        
+        if not self.session_token:
+            self.print_test_result("Onboarding idempotency", False, "No authenticated session available")
+            return False
+        
+        cookies = {"session_token": self.session_token}
+        
+        # Call complete-onboarding again
+        response1 = await self.make_request("POST", "/auth/complete-onboarding", cookies=cookies)
+        response2 = await self.make_request("POST", "/auth/complete-onboarding", cookies=cookies)
+        
+        success = response1["status"] == 200 and response2["status"] == 200
+        details = f"First call: {response1['status']}, Second call: {response2['status']}, Both should be 200"
+        
+        self.print_test_result("Onboarding idempotency", success, details)
+        return success
+    
     async def run_all_tests(self):
         """Run all backend tests"""
         print("🚀 Starting Backend API Tests for Find a Connection Feature")
