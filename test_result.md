@@ -295,6 +295,31 @@ frontend:
         - agent: "testing"
         - comment: "Navigation and Header Updates working correctly. Header shows Sign In button when not authenticated. Mobile responsive menu works properly. Logo and navigation links are properly implemented. Authentication-aware navigation is working as expected."
 
+  - task: "Mandatory Multi-Step Onboarding Flow"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/onboarding/OnboardingFlow.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Implemented complete 5-step mandatory onboarding flow that captures user profile information immediately after sign-up. Steps include: BasicInfo (job_title, company, age, years_experience), Skills (skills array, expertise), MeetingPreferences (meeting_preferences array), Interests (interests array), FutureGoals (future_goals text). Backend endpoint /api/auth/complete-onboarding marks onboarding as complete. App.tsx redirects users to onboarding if onboarding_completed=false. Fixed VITE_BACKEND_URL in frontend .env to use preview URL instead of punemeetups.in. Ready for testing."
+
+backend:
+  - task: "Onboarding Complete API Endpoint"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/routes/auth_routes.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Added POST /api/auth/complete-onboarding endpoint that marks user.onboarding_completed=True in database. Endpoint requires authentication and updates user document. Ready for testing."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
