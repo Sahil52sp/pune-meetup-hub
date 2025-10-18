@@ -23,6 +23,7 @@ class User(BaseModel):
     picture: Optional[str] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     is_active: bool = True
+    onboarding_completed: bool = False
 
 
 class UserCreate(BaseModel):
