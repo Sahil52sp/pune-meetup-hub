@@ -18,6 +18,60 @@ import BrowseConnectionsPage from "./pages/BrowseConnectionsPage";
 
 const queryClient = new QueryClient();
 
+// Component to handle onboarding flow
+const AppContent = () => {
+  const { user, isAuthenticated, isLoading, checkAuthStatus } = useAuth();
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <Box className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </Box>
+    );
+  }
+
+  // Show onboarding for authenticated users who haven't completed it
+  if (isAuthenticated && user && !user.onboarding_completed) {
+    return <OnboardingFlow onComplete={checkAuthStatus} />;
+  }
+
+  // Show main app
+  return (
+    <Box className="min-h-screen flex flex-col">
+      <Header />
+      <Box as="main" className="flex-1">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/meetups" element={<MeetupsPage />} />
+          <Route path="/connections" element={
+            <ProtectedRoute>
+              <ConnectionsPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/browse" element={
+            <ProtectedRoute>
+              <BrowseConnectionsPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          } />
+          <Route path="/messaging" element={
+            <ProtectedRoute>
+              <MessagingPage />
+            </ProtectedRoute>
+          } />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
+      </Box>
+      <Footer />
+    </Box>
+  );
+};
+
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
@@ -26,33 +80,7 @@ const App = () => {
         <Sonner />
         <AuthProvider>
           <BrowserRouter>
-            <Box className="min-h-screen flex flex-col">
-              <Header />
-              <Box as="main" className="flex-1">
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/meetups" element={<MeetupsPage />} />
-                  <Route path="/connections" element={
-                    <ProtectedRoute>
-                      <ConnectionsPage />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/browse" element={<BrowseConnectionsPage />} />
-                  <Route path="/profile" element={
-                    <ProtectedRoute>
-                      <ProfilePage />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="/messaging" element={
-                    <ProtectedRoute>
-                      <MessagingPage />
-                    </ProtectedRoute>
-                  } />
-                  <Route path="*" element={<HomePage />} />
-                </Routes>
-              </Box>
-              <Footer />
-            </Box>
+            <AppContent />
           </BrowserRouter>
         </AuthProvider>
       </TooltipProvider>
