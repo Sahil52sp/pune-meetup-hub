@@ -261,3 +261,34 @@ async def get_current_user_info(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Error retrieving user information"
         )
+
+
+@router.post("/complete-onboarding", response_model=APIResponse)
+async def complete_onboarding(
+    request: Request,
+    db: AsyncIOMotorDatabase = Depends(get_database)
+):
+    """Mark user onboarding as complete"""
+    try:
+        from auth import get_current_user
+        user = await get_current_user(request, db)
+        
+        # Update user onboarding status
+        await db.users.update_one(
+            {"id": user.id},
+            {"$set": {"onboarding_completed": True}}
+        )
+        
+        return APIResponse(
+            success=True,
+            message="Onboarding completed successfully"
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error completing onboarding: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error completing onboarding"
+        )
