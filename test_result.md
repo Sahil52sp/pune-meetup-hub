@@ -327,7 +327,9 @@ metadata:
   run_ui: true
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Mandatory Multi-Step Onboarding Flow"
+    - "Onboarding Complete API Endpoint"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
