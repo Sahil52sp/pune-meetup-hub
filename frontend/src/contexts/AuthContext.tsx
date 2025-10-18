@@ -8,6 +8,7 @@ interface User {
   picture?: string;
   created_at: string;
   is_active: boolean;
+  onboarding_completed?: boolean;
 }
 
 interface AuthContextType {
