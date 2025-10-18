@@ -47,27 +47,25 @@ async def dev_login(
         
         logger.info(f"Looking for existing user with email: {test_email}")
         
-        # Check if user exists
-        existing_user = await db.users.find_one({"email": test_email})
+        # Always create a fresh user for testing onboarding
+        logger.info("Creating fresh test user for onboarding testing")
+        # Delete existing user if exists
+        await db.users.delete_many({"email": test_email})
         
-        if existing_user:
-            logger.info("Found existing user, using it")
-            user_data = existing_user
-        else:
-            logger.info("Creating new test user")
-            # Create new test user
-            user_data = {
-                "id": str(uuid.uuid4()),
-                "email": test_email,
-                "name": test_name,
-                "picture": test_picture,
-                "created_at": datetime.now(timezone.utc),
-                "is_active": True
-            }
-            
-            # Insert user into database
-            result = await db.users.insert_one(user_data)
-            logger.info(f"User created with ID: {result.inserted_id}")
+        # Create new test user without onboarding_completed
+        user_data = {
+            "id": str(uuid.uuid4()),
+            "email": test_email,
+            "name": test_name,
+            "picture": test_picture,
+            "created_at": datetime.now(timezone.utc),
+            "is_active": True,
+            "onboarding_completed": False
+        }
+        
+        # Insert user into database
+        result = await db.users.insert_one(user_data)
+        logger.info(f"Fresh user created with ID: {result.inserted_id}")
         
         # Create session token
         session_token = str(uuid.uuid4())
