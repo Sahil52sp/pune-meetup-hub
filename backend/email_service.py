@@ -25,13 +25,13 @@ class EmailService:
             if request_host.startswith("localhost") or "127.0.0.1" in request_host:
                 return "http://localhost:3000"  # Default Vite dev port
             elif "preview.emergentagent.com" in request_host:
-                return "https://meetup-network-1.preview.emergentagent.com"
+                return "https://techconnect-15.preview.emergentagent.com"
             else:
                 # For custom domains or production, try to infer frontend URL
                 return f"https://{request_host.replace('api.', '').replace(':8000', '')}"
         else:
             # Fallback to environment variable or default
-            return os.getenv("FRONTEND_URL", "https://meetup-network-1.preview.emergentagent.com")
+            return os.getenv("FRONTEND_URL", "https://techconnect-15.preview.emergentagent.com")
 
     async def send_connection_request_email(
         self,

@@ -4,7 +4,7 @@
 export const API_CONFIG = {
   // Use environment variable if set, otherwise auto-detect based on dev/prod mode
   baseURL: import.meta.env.VITE_BACKEND_URL || 
-    (import.meta.env.DEV ? 'http://localhost:8000' : 'https://meetup-network-1.preview.emergentagent.com'),
+    (import.meta.env.DEV ? 'http://localhost:8000' : 'https://techconnect-15.preview.emergentagent.com'),
   
   // Timeout for API requests (in milliseconds)
   timeout: 30000,

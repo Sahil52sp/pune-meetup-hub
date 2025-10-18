@@ -74,7 +74,7 @@ is_development = os.environ.get('ENVIRONMENT', 'development') == 'development'
 # PRODUCTION CORS - Hardcoded for your domain
 cors_origins = [
     "https://punemeetups.in",
-    "https://meetup-network-1.preview.emergentagent.com"
+    "https://techconnect-15.preview.emergentagent.com"
 ]
 
 app.add_middleware(

@@ -279,7 +279,7 @@ const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   
-  const backendUrl = 'https://meetup-network-1.preview.emergentagent.com';
+  const backendUrl = 'https://techconnect-15.preview.emergentagent.com';
 
   const loadProfile = async () => {
     try {
@@ -642,7 +642,7 @@ session_token = request.cookies.get("session_token")
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,  # Allow cookies
-    allow_origins=["https://meetup-network-1.preview.emergentagent.com"],
+    allow_origins=["https://techconnect-15.preview.emergentagent.com"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -796,13 +796,13 @@ import { Component } from '@/components/ui/component';
 ```bash
 MONGO_URL="mongodb://localhost:27017"
 DB_NAME="test_database"  
-CORS_ORIGINS="https://meetup-network-1.preview.emergentagent.com"
+CORS_ORIGINS="https://techconnect-15.preview.emergentagent.com"
 ```
 
 #### Frontend (.env)
 ```bash
-REACT_APP_BACKEND_URL=https://meetup-network-1.preview.emergentagent.com
-VITE_BACKEND_URL=https://meetup-network-1.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://techconnect-15.preview.emergentagent.com
+VITE_BACKEND_URL=https://techconnect-15.preview.emergentagent.com
 ```
 
 ### Service Management Commands
@@ -852,7 +852,7 @@ app.include_router(new_feature_routes.router)
 // 1. Create new page pages/NewFeaturePage.tsx
 export default function NewFeaturePage() {
   const [features, setFeatures] = useState([]);
-  const backendUrl = 'https://meetup-network-1.preview.emergentagent.com';
+  const backendUrl = 'https://techconnect-15.preview.emergentagent.com';
   
   const loadFeatures = async () => {
     const response = await fetch(`${backendUrl}/api/new-feature`, {

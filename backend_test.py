@@ -12,7 +12,7 @@ from datetime import datetime
 from typing import Dict, Optional, Any
 
 # Configuration
-BASE_URL = "https://meetup-network-1.preview.emergentagent.com/api"
+BASE_URL = "https://techconnect-15.preview.emergentagent.com/api"
 TEST_SESSION_ID = "test_session_123"  # Mock session ID for testing
 
 class APITester:

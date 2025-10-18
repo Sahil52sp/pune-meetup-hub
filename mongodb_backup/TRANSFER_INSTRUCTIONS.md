@@ -99,7 +99,7 @@ MONGO_URL="mongodb://your-server-ip:27017"
 DB_NAME="meetup_network"
 
 # Keep existing CORS settings:
-CORS_ORIGINS="https://meetup-network-1.preview.emergentagent.com,http://localhost:3000"
+CORS_ORIGINS="https://techconnect-15.preview.emergentagent.com,http://localhost:3000"
 ```
 
 ### **Restart Backend Service:**

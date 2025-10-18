@@ -1,0 +1,82 @@
+<analysis>
+The AI engineer began by performing mandatory setup steps and then extensively explored the existing codebase to understand the initial application. The core task was to build a Find a connection feature, encompassing user authentication (Google OAuth via emergentintegrations), profile management, connection requests, and an in-app messaging system. The development followed a backend-first approach, creating models, authentication logic, and API routes. Frontend integration involved establishing an AuthContext, updating navigation, and building new pages for profiles, browsing, connections, and messaging. Significant effort was spent debugging persistent authentication and CORS issues, leading to the removal of localhost dependencies and a full migration to MongoDB Atlas. Most recently, the focus shifted to implementing a mandatory multi-step profile onboarding flow for new users, which involved modifying backend models and creating several new frontend components and updating the routing logic.
+</analysis>
+
+<product_requirements>
+The user is building a website for tech meetups, with the first part (listing meetups) already complete. The current task is to implement a Find a connection feature. This feature requires:
+-   **User Authentication**: Google OAuth is preferred.
+-   **User Profiles**: Users can create profiles, make themselves open for connection, and store details like job title, company, age, years of experience, skills, meeting preferences, interests, and future goals.
+-   **Browse Connections**: Users can view a list of others open for connection.
+-   **Connection Request System**: Users can send connection requests with a text message. If accepted, they can contact each other.
+-   **Built-in Messaging**: An in-app messaging system for connected users.
+-   **Mandatory Onboarding**: The profile creation process must be a compulsory, multi-step flow immediately after sign-up, ensuring all profile details are captured before users can access other features. Each step should be on a new page.
+-   **Mobile Responsiveness**: Key sections like the Welcome to Find Connection banner and connection cards need to be mobile-responsive.
+-   **Custom Domain Support**: The application must function correctly with a custom domain (e.g., ).
+-   **MongoDB Atlas Integration**: The application must exclusively use the provided MongoDB Atlas URL, with no local database fallbacks.
+-   **Email Notifications**: SendGrid integration for connection request notifications.
+</product_requirements>
+
+<key_technical_concepts>
+-   **FastAPI**: Python backend framework.
+-   **React**: Frontend JavaScript library.
+-   **MongoDB & MongoDB Atlas**: NoSQL database for data storage.
+-   **emergentintegrations**: Custom library for Google OAuth.
+-   **CORS (Cross-Origin Resource Sharing)**: Handling cross-domain requests.
+-   **Tailwind CSS**: Utility-first CSS framework for styling.
+-   **SendGrid**: Email service for notifications.
+-   **Vite**: Frontend build tool.
+</key_technical_concepts>
+
+<code_architecture>
+The application has a standard full-stack structure:
+
+
+-   ****: Main FastAPI application, registers routers, handles startup/shutdown hooks.
+    -   *Changes*: Updated to include new auth, profile, connection, and message routes, and to use the  module for MongoDB connection. CORS configuration was explicitly defined to allow credentials with specific origins and headers.
+-   ****: Defines Pydantic models for MongoDB documents (User, UserProfile, ConnectionRequest, Conversation, Message). Uses UUIDs for IDs.
+    -   *Changes*: Added  to  model, and new fields to  to support multi-step onboarding (e.g., , , ).  and  models were also updated.
+-   ****: Handles authentication logic, including Google OAuth callbacks and session management.
+    -   *Changes*: Logic for session handling and user authentication.
+-   ****: Manages the MongoDB connection.
+    -   *Changes*: Created to encapsulate MongoDB connection logic, resolve circular dependencies, and removed all  fallbacks, strictly enforcing connection to the Atlas URL from .
+-   ****: Define API endpoints for authentication, profiles, connections, and messaging.
+    -   *Changes*: New files created for each feature. The  was updated with a new endpoint to mark onboarding as complete. All routes now import  module.
+-   ****: Integrates SendGrid for email notifications.
+    -   *Changes*: Newly added file, imports  and uses  from environment variables.
+-   ****: Main React component, sets up routing and context providers.
+    -   *Changes*: Integrated  and a new  component to enforce the mandatory onboarding flow using React Router.
+-   ****: Manages user authentication state and Google OAuth flow.
+    -   *Changes*: Implemented logic to check  status from the user profile, manage redirection to the onboarding flow, and handle session ID processing. Fixed issues with  not being correctly picked up, initially with hardcoding and then by ensuring proper environment variable usage. Removed a non-existent  endpoint.
+-   ****: Navigation bar component.
+    -   *Changes*: Updated to display My Profile, Browse Connections, My Connections, and Messages prominently for authenticated users.
+-   ****: New pages for user profiles, browsing connections, managing requests, and messaging. Also introduced  and .
+    -   *Changes*:  includes  and  for authenticated users.  was created. Mobile responsiveness was added to  and .
+-   ****: New components for the multi-step onboarding process.
+    -   *Changes*:  orchestrates the steps, and , , , ,  are individual forms.
+-   ** files (, )**: Store environment variables.
+    -   *Changes*:  was updated to explicitly list allowed origins, including the custom domain.  was updated to MongoDB Atlas,  to .  and  were added.  in frontend was explicitly set to the custom domain.
+</code_architecture>
+
+<pending_tasks>
+-   Complete the implementation of the frontend multi-step onboarding flow ( and its individual step components).
+-   Ensure that the data submitted through the frontend onboarding steps correctly updates the backend UserProfile and sets the  flag for the User.
+-   Verify the mobile responsiveness of all new pages and components.
+</pending_tasks>
+
+<current_work>
+Immediately before this summary request, the AI engineer was in the process of implementing the mandatory multi-step onboarding flow. The backend models (, , , , ) were updated to include the new fields required for the onboarding steps and an  flag. A new backend API endpoint was added to the auth routes () to mark onboarding as complete.
+
+On the frontend, several new components were created:
+-   : The main component to manage the multi-step flow.
+-   
+-   
+-   
+-   
+-   
+
+The  was updated to handle the onboarding redirection logic, and the  file was refactored with an  component to ensure the onboarding flow is mandatory after user sign-up. Services were restarted, and the AI was checking if all necessary UI components were present and if services were running properly.
+</current_work>
+
+<optional_next_step>
+Verify that all services are running correctly and then continue implementing the logic within the newly created frontend onboarding step components (, , etc.) and integrate them into .
+</optional_next_step>
