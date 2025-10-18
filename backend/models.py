@@ -47,14 +47,24 @@ class UserProfile(BaseModel):
     
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     user_id: str
-    job_title: Optional[str] = None
+    # Basic Info (Step 2)
+    job_title: Optional[str] = None  # Designation
     company: Optional[str] = None
+    age: Optional[int] = None
+    years_experience: Optional[int] = None
+    # Skills & Expertise (Step 3)
+    skills: List[str] = Field(default_factory=list)  # What you are good at
+    expertise: Optional[str] = None  # What do you do
+    # Meeting Preferences (Step 4)
+    meeting_preferences: List[str] = Field(default_factory=list)  # Where prefer to meet
+    # Interests (Step 5)
+    interests: List[str] = Field(default_factory=list)  # Free time activities
+    # Future Goals (Step 6)
+    future_goals: Optional[str] = None  # Where you see yourself in 5 years
+    # Legacy fields
     bio: Optional[str] = None
     location: Optional[str] = None
     linkedin_url: Optional[str] = None
-    years_experience: Optional[int] = None
-    skills: List[str] = Field(default_factory=list)
-    interests: List[str] = Field(default_factory=list)
     is_open_for_connection: bool = True
     contact_preferences: Optional[str] = None  # "email", "linkedin", "both"
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
