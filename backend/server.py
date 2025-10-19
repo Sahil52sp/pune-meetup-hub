@@ -66,16 +66,24 @@ api_router.include_router(messaging_routes.router)
 # Include the main router in the app
 app.include_router(api_router)
 
-# Configure CORS - in development, allow local origins with regex
+# Configure CORS - in development, allow local origins
 is_development = os.environ.get('ENVIRONMENT', 'development') == 'development'
 
-# PRODUCTION ONLY - No development mode
-# Always use specific origins for production
-# PRODUCTION CORS - Hardcoded for your domain
-cors_origins = [
-    "https://punemeetups.in",
-    "https://techconnect-15.preview.emergentagent.com"
-]
+# Configure origins based on environment
+if is_development:
+    # Development mode - allow localhost
+    cors_origins = [
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:5173"
+    ]
+else:
+    # Production mode - specific domains only
+    cors_origins = [
+        "https://punemeetups.in",
+        "https://techconnect-15.preview.emergentagent.com"
+    ]
 
 app.add_middleware(
     CORSMiddleware,

@@ -63,11 +63,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           if (response.ok) {
             const data = await response.json();
             console.log('Session data:', data);
+            console.log('User onboarding_completed:', data.data?.user?.onboarding_completed);
             if (data.success) {
               setUser(data.data.user);
-              console.log('User set:', data.data.user);
-              // Clean URL fragment
-              window.history.replaceState({}, document.title, window.location.pathname);
+              console.log('User set with onboarding status:', data.data.user.onboarding_completed);
+              
+              // New users MUST complete onboarding before accessing the site
+              if (data.data.user.onboarding_completed === false) {
+                console.log('New user detected, redirecting to signup/onboarding');
+                window.history.replaceState({}, document.title, '/signup');
+                window.location.pathname = '/signup';
+              } else {
+                // Existing user, just clean the URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+              }
+              
               setIsLoading(false);
               return; // Don't check auth status if we just processed session
             }

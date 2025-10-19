@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Code, Plus, X, Lightbulb } from 'lucide-react';
+import { Code, Plus, X } from 'lucide-react';
 
 interface OnboardingData {
+  name: string;
   job_title: string;
   company: string;
   age: number | '';
@@ -54,41 +54,24 @@ export const SkillsStep: React.FC<SkillsStepProps> = ({ data, updateData }) => {
 
   return (
     <Card className="border-0 shadow-none">
-      <CardHeader className="text-center pb-6">
-        <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-          <Code className="w-8 h-8 text-green-600" />
+      <CardHeader className="text-left md:text-center p-4 md:pb-12">
+        <div className="md:mx-auto w-8 md:w-10 h-8 md:h-10 bg-green-100 rounded-full flex items-center justify-center mb-1">
+          <Code className="w-5 h-5 text-green-600" />
         </div>
         <CardTitle className="text-2xl">What are you good at?</CardTitle>
-        <CardDescription className="text-base">
-          Share your skills and tell us what you do professionally
-        </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="p-4 md:p-6 md:pt-0">
         {/* What do you do */}
-        <div className="space-y-2">
-          <Label htmlFor="expertise" className="text-sm font-medium flex items-center gap-2">
-            <Lightbulb className="w-4 h-4" />
-            What do you do? *
-          </Label>
-          <Textarea
-            id="expertise"
-            placeholder="e.g. I build web applications using React and Node.js, focusing on creating user-friendly interfaces and scalable backends..."
-            value={data.expertise}
-            onChange={(e) => updateData({ expertise: e.target.value })}
-            rows={3}
-            className="resize-none"
-          />
-        </div>
+        
 
         {/* Skills */}
         <div className="space-y-4">
-          <Label className="text-sm font-medium">Your Skills *</Label>
           
           {/* Selected Skills */}
           {data.skills.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {data.skills.map((skill) => (
-                <Badge key={skill} variant="secondary" className="text-sm">
+                <Badge key={skill} variant="default" className="text-sm">
                   {skill}
                   <button
                     onClick={() => removeSkill(skill)}
@@ -102,7 +85,7 @@ export const SkillsStep: React.FC<SkillsStepProps> = ({ data, updateData }) => {
           )}
 
           {/* Add Custom Skill */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center justify-center">
             <Input
               placeholder="Add a skill..."
               value={newSkill}
@@ -113,16 +96,15 @@ export const SkillsStep: React.FC<SkillsStepProps> = ({ data, updateData }) => {
             <Button 
               onClick={addCustomSkill} 
               size="sm" 
-              variant="outline"
               disabled={!newSkill.trim()}
+              className="h-10 w-10 mt-1"
             >
-              <Plus className="h-4 w-4" />
+              <Plus className="h-8 w-4" />
             </Button>
           </div>
 
           {/* Popular Skills */}
           <div>
-            <p className="text-sm text-gray-600 mb-3">Popular skills to choose from:</p>
             <div className="flex flex-wrap gap-2">
               {POPULAR_SKILLS.map((skill) => (
                 <button
@@ -140,12 +122,6 @@ export const SkillsStep: React.FC<SkillsStepProps> = ({ data, updateData }) => {
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-          <p className="text-sm text-green-800">
-            <strong>💡 Tip:</strong> Add skills you're confident in. This helps others find you for collaboration and opportunities.
-          </p>
         </div>
       </CardContent>
     </Card>

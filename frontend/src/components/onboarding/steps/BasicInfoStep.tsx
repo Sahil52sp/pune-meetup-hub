@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { User, Building, Calendar, Award } from 'lucide-react';
 
 interface OnboardingData {
+  name: string;
   job_title: string;
   company: string;
   age: number | '';
@@ -24,34 +25,44 @@ interface BasicInfoStepProps {
 export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({ data, updateData }) => {
   return (
     <Card className="border-0 shadow-none">
-      <CardHeader className="text-center pb-6">
-        <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-          <User className="w-8 h-8 text-blue-600" />
+      <CardHeader className="text-left md:text-center p-4 md:pb-12">
+        <div className="md:mx-auto w-8 md:w-10 h-8 md:h-10 bg-blue-100 rounded-full flex items-center justify-center mb-1">
+          <User className="w-4 md:w-5 h-4 md:h-5 text-blue-600" />
         </div>
         <CardTitle className="text-2xl">Tell us about yourself</CardTitle>
-        <CardDescription className="text-base">
-          Let's start with some basic information about your professional background
-        </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <CardContent className="p-4 md:p-6 md:pt-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-0">
+          <div className="space-y-2 md:col-span-2">
+            <Label htmlFor="name" className="text-sm font-medium flex items-center gap-2">
+              Full Name *
+            </Label>
+            <Input
+              id="name"
+              placeholder="e.g. John Doe"
+              value={data.name}
+              onChange={(e) => updateData({ name: e.target.value })}
+              className="h-11"
+              autoComplete="off"
+            />
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="job_title" className="text-sm font-medium flex items-center gap-2">
-              <Award className="w-4 h-4" />
-              Designation / Job Title *
+              Designation*
             </Label>
             <Input
               id="job_title"
-              placeholder="e.g. Software Engineer, Product Manager"
+              placeholder="e.g. Software Engineer"
               value={data.job_title}
               onChange={(e) => updateData({ job_title: e.target.value })}
               className="h-11"
+              autoComplete="off"
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="company" className="text-sm font-medium flex items-center gap-2">
-              <Building className="w-4 h-4" />
               Company *
             </Label>
             <Input
@@ -60,12 +71,12 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({ data, updateData }
               value={data.company}
               onChange={(e) => updateData({ company: e.target.value })}
               className="h-11"
+              autoComplete="off"
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="age" className="text-sm font-medium flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
               Age *
             </Label>
             <Input
@@ -77,12 +88,12 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({ data, updateData }
               min="18"
               max="100"
               className="h-11"
+              autoComplete="off"
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="years_experience" className="text-sm font-medium flex items-center gap-2">
-              <Award className="w-4 h-4" />
               Years of Experience *
             </Label>
             <Input
@@ -94,14 +105,9 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({ data, updateData }
               min="0"
               max="50"
               className="h-11"
+              autoComplete="off"
             />
           </div>
-        </div>
-
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <p className="text-sm text-blue-800">
-            <strong>💡 Tip:</strong> This information helps others understand your professional background and connect with relevant opportunities.
-          </p>
         </div>
       </CardContent>
     </Card>

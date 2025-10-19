@@ -42,7 +42,7 @@ async def dev_login(
         
         # Create a test user
         test_email = "dev@localhost.com"
-        test_name = "Local Dev User"
+        test_name = ""  # Empty name - will be filled during onboarding
         test_picture = "https://ui-avatars.com/api/?name=Dev+User"
         
         logger.info(f"Looking for existing user with email: {test_email}")
@@ -112,7 +112,8 @@ async def dev_login(
                     "name": user_data["name"],
                     "picture": user_data.get("picture"),
                     "created_at": user_data["created_at"].isoformat() if isinstance(user_data["created_at"], datetime) else str(user_data["created_at"]),
-                    "is_active": user_data.get("is_active", True)
+                    "is_active": user_data.get("is_active", True),
+                    "onboarding_completed": user_data.get("onboarding_completed", False)
                 },
                 "expires_at": expires_at.isoformat()
             }
@@ -154,10 +155,13 @@ async def process_session(
             )
         
         # Create or get user
-        user = await create_or_get_user(db, session_data)
+        user, is_new_user = await create_or_get_user(db, session_data)
         
         # Create user session
         user_session = await create_user_session(db, user.id, session_data.session_token)
+        
+        # Log user status
+        logger.info(f"User {'created' if is_new_user else 'logged in'}: {user.email}, onboarding_completed: {user.onboarding_completed}")
         
         # Set httpOnly cookie
         # In development, use secure=False and samesite="lax" for localhost
@@ -266,15 +270,23 @@ async def complete_onboarding(
     request: Request,
     db: AsyncIOMotorDatabase = Depends(get_database)
 ):
-    """Mark user onboarding as complete"""
+    """Mark user onboarding as complete and update user name"""
     try:
         from auth import get_current_user
         user = await get_current_user(request, db)
         
-        # Update user onboarding status
+        # Get name from request body if provided
+        body = await request.json()
+        name = body.get("name") if body else None
+        
+        # Update user onboarding status and name
+        update_data = {"onboarding_completed": True}
+        if name:
+            update_data["name"] = name
+        
         await db.users.update_one(
             {"id": user.id},
-            {"$set": {"onboarding_completed": True}}
+            {"$set": update_data}
         )
         
         return APIResponse(

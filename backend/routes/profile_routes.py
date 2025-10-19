@@ -23,19 +23,34 @@ async def create_profile(
     request: Request,
     db: AsyncIOMotorDatabase = Depends(get_database)
 ):
-    """Create user profile"""
+    """Create or update user profile"""
     try:
         current_user = await get_current_user(request, db)
         
         # Check if profile already exists
         existing_profile = await db.user_profiles.find_one({"user_id": current_user.id})
+        
         if existing_profile:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Profile already exists"
+            # Profile exists - update it instead
+            logger.info(f"Profile already exists for user {current_user.id}, updating instead")
+            update_data = profile_data.model_dump()
+            update_data["updated_at"] = datetime.now(timezone.utc)
+            
+            await db.user_profiles.update_one(
+                {"user_id": current_user.id},
+                {"$set": update_data}
+            )
+            
+            # Get updated profile
+            updated_profile = await db.user_profiles.find_one({"user_id": current_user.id})
+            
+            return APIResponse(
+                success=True,
+                message="Profile updated successfully",
+                data={"profile": UserProfile(**updated_profile).model_dump()}
             )
         
-        # Create profile
+        # Create new profile
         profile = UserProfile(
             user_id=current_user.id,
             **profile_data.model_dump()
@@ -52,10 +67,10 @@ async def create_profile(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error creating profile: {str(e)}")
+        logger.error(f"Error creating/updating profile: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Error creating profile"
+            detail="Error creating/updating profile"
         )
 
 

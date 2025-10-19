@@ -27,24 +27,58 @@ async def get_session_data_from_emergent(session_id: str) -> Optional[SessionDat
         return None
 
 
-async def create_or_get_user(db, session_data: SessionData) -> User:
-    """Create user if not exists, or get existing user"""
+async def create_or_get_user(db, session_data: SessionData, is_new_user: bool = False) -> tuple[User, bool]:
+    """Create user if not exists, or get existing user. Returns (user, is_newly_created)"""
     try:
         # Check if user exists
         existing_user = await db.users.find_one({"email": session_data.email})
         
         if existing_user:
-            return User(**existing_user)
+            # Existing user - check if they need onboarding
+            should_update = False
+            updates = {}
+            
+            # Only check profile status if onboarding is not already marked as complete
+            if not existing_user.get("onboarding_completed", False):
+                # Check if user has a profile
+                existing_profile = await db.user_profiles.find_one({"user_id": existing_user["id"]})
+                if existing_profile:
+                    # User has a profile - they've already completed setup, just need to mark it
+                    logger.info(f"User {session_data.email} has profile but onboarding not marked complete, fixing...")
+                    updates["onboarding_completed"] = True
+                    should_update = True
+                else:
+                    # User exists but no profile and onboarding not complete
+                    # Keep onboarding_completed as False - they need to go through onboarding
+                    logger.info(f"User {session_data.email} exists without profile, needs onboarding")
+                    # Ensure the field exists and is False
+                    if "onboarding_completed" not in existing_user:
+                        updates["onboarding_completed"] = False
+                        should_update = True
+            
+            # Apply updates if needed
+            if should_update:
+                await db.users.update_one(
+                    {"email": session_data.email},
+                    {"$set": updates}
+                )
+                existing_user.update(updates)
+            
+            # Return existing user with is_newly_created=False
+            return User(**existing_user), False
         
-        # Create new user
+        # Create new user with onboarding_completed=False and placeholder name
+        # User will provide their actual name during onboarding
         user = User(
             email=session_data.email,
-            name=session_data.name,
-            picture=session_data.picture
+            name="",  # Empty name - will be filled during onboarding
+            picture=session_data.picture,
+            onboarding_completed=False  # New users need onboarding
         )
         
         await db.users.insert_one(user.model_dump())
-        return user
+        logger.info(f"Created new user with email: {session_data.email}, onboarding required")
+        return user, True  # is_newly_created=True
         
     except Exception as e:
         logger.error(f"Error creating/getting user: {str(e)}")

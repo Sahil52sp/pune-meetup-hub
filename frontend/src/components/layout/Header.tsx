@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, User, Settings, LogOut, MessageSquare, Users, Search } from "lucide-react";
+import { Menu, X, User, LogOut, MessageSquare, Users } from "lucide-react";
 import { Box } from "@/components/ui/box";
 import { Tag } from "@/components/ui/tag";
 import { Button } from "@/components/ui/button";
@@ -123,7 +123,7 @@ export function Header() {
         </Box>
 
         {/* Desktop Auth Section */}
-        <Box className="hidden md:flex items-center space-x-4">
+        <Box className="hidden md:flex items-center space-x-3">
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -172,9 +172,14 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button onClick={login} size="sm" variant="tertiary">
-              Sign In
-            </Button>
+            <>
+              <Button onClick={login} size="sm" variant="outline">
+                Sign In
+              </Button>
+              <Button onClick={login} size="sm" variant="tertiary">
+                Sign Up
+              </Button>
+            </>
           )}
         </Box>
 
@@ -290,9 +295,14 @@ export function Header() {
                 </div>
               </>
             ) : (
-              <Button onClick={login} size="sm">
-                Sign In
-              </Button>
+              <div className="flex flex-col gap-3 w-full">
+                <Button onClick={login} size="sm" variant="outline" className="w-full">
+                  Sign In
+                </Button>
+                <Button onClick={login} size="sm" className="w-full">
+                  Sign Up
+                </Button>
+              </div>
             )}
           </Box>
         </Box>

@@ -23,6 +23,7 @@ export default {
           DEFAULT: "var(--primary)",
           foreground: "var(--primary-foreground)",
           glow: "var(--primary-glow)",
+          light: "var(--primary-light)",
         },
         secondary: {
           DEFAULT: "var(--secondary)",
@@ -39,6 +40,7 @@ export default {
         muted: {
           DEFAULT: "var(--muted)",
           foreground: "var(--muted-foreground)",
+          input: "var(--muted-input)",
         },
         accent: {
           DEFAULT: "var(--accent)",

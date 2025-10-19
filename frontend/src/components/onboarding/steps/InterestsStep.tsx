@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Heart, Plus, X, Music, Camera, Book, Gamepad2, Plane, Dumbbell } from 'lucide-react';
 
 interface OnboardingData {
+  name: string;
   job_title: string;
   company: string;
   age: number | '';
@@ -64,23 +65,19 @@ export const InterestsStep: React.FC<InterestsStepProps> = ({ data, updateData }
 
   return (
     <Card className="border-0 shadow-none">
-      <CardHeader className="text-center pb-6">
-        <div className="mx-auto w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-4">
-          <Heart className="w-8 h-8 text-pink-600" />
+      <CardHeader className="text-left md:text-center p-4 md:pb-12">
+        <div className="md:mx-auto w-8 md:w-10 h-8 md:h-10 bg-pink-100 rounded-full flex items-center justify-center mb-1">
+          <Heart className="w-5 h-5 text-pink-600" />
         </div>
         <CardTitle className="text-2xl">What do you like to do in your free time?</CardTitle>
-        <CardDescription className="text-base">
-          Share your hobbies and interests to connect with like-minded people
-        </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="p-4 md:p-6 md:pt-0">
         {/* Selected Interests */}
         {data.interests.length > 0 && (
           <div className="space-y-2">
-            <Label className="text-sm font-medium">Your Interests</Label>
             <div className="flex flex-wrap gap-2">
               {data.interests.map((interest) => (
-                <Badge key={interest} variant="secondary" className="text-sm">
+                <Badge key={interest} variant="default" className="text-sm">
                   {interest}
                   <button
                     onClick={() => removeInterest(interest)}
@@ -95,9 +92,7 @@ export const InterestsStep: React.FC<InterestsStepProps> = ({ data, updateData }
         )}
 
         {/* Add Custom Interest */}
-        <div className="space-y-2">
-          <Label htmlFor="custom-interest" className="text-sm font-medium">Add Custom Interest</Label>
-          <div className="flex gap-2">
+          <div className="flex gap-2 mt-4 items-center justify-center">
             <Input
               id="custom-interest"
               placeholder="e.g. Rock climbing, Astronomy, Gardening..."
@@ -109,21 +104,16 @@ export const InterestsStep: React.FC<InterestsStepProps> = ({ data, updateData }
             <Button 
               onClick={addCustomInterest} 
               size="sm" 
-              variant="outline"
               disabled={!newInterest.trim()}
+              className="h-10 w-10 mt-1"
             >
               <Plus className="h-4 w-4" />
             </Button>
           </div>
-        </div>
 
         {/* Popular Interests */}
-        <div className="space-y-3">
-          <Label className="text-sm font-medium">Popular Interests *</Label>
-          <p className="text-sm text-gray-600">
-            Click to add interests that resonate with you:
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div className="space-y-2 mt-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {POPULAR_INTERESTS.map((interest) => {
               const Icon = interest.icon === Plus ? Heart : interest.icon;
               const isSelected = data.interests.includes(interest.label);
@@ -133,7 +123,7 @@ export const InterestsStep: React.FC<InterestsStepProps> = ({ data, updateData }
                   key={interest.id}
                   onClick={() => addInterest(interest.label)}
                   disabled={isSelected}
-                  className={`p-3 rounded-lg border transition-all text-left ${
+                  className={`px-3 py-2 rounded-sm border transition-all text-left ${
                     isSelected
                       ? 'bg-pink-50 border-pink-300 text-pink-800 cursor-not-allowed'
                       : 'bg-white border-gray-200 hover:bg-pink-50 hover:border-pink-300 cursor-pointer'
@@ -141,25 +131,12 @@ export const InterestsStep: React.FC<InterestsStepProps> = ({ data, updateData }
                 >
                   <div className="flex items-center gap-2">
                     <Icon className={`w-4 h-4 ${isSelected ? 'text-pink-600' : 'text-gray-600'}`} />
-                    <span className="text-sm font-medium">{interest.label}</span>
-                    {isSelected && (
-                      <div className="ml-auto w-4 h-4 bg-pink-500 rounded-full flex items-center justify-center">
-                        <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                    )}
+                    <span className="text-xs font-medium">{interest.label}</span>
                   </div>
                 </button>
               );
             })}
           </div>
-        </div>
-
-        <div className="bg-pink-50 p-4 rounded-lg border border-pink-200">
-          <p className="text-sm text-pink-800">
-            <strong>💡 Tip:</strong> Shared interests are great conversation starters! Choose interests you're genuinely passionate about.
-          </p>
         </div>
       </CardContent>
     </Card>
