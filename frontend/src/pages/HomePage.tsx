@@ -3,7 +3,7 @@ import GuestHomePage from "./GuestHomePage";
 import AuthenticatedHomePage from "./AuthenticatedHomePage";
 
 export default function HomePage() {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth();
 
   // Show loading state while checking authentication
   if (isLoading) {
@@ -17,6 +17,9 @@ export default function HomePage() {
     );
   }
 
-  // Render appropriate homepage based on authentication state
-  return isAuthenticated ? <AuthenticatedHomePage /> : <GuestHomePage />;
+  // Show authenticated dashboard ONLY if user has completed onboarding
+  // Users without completed onboarding see the public website
+  const shouldShowDashboard = isAuthenticated && user && user.onboarding_completed === true;
+  
+  return shouldShowDashboard ? <AuthenticatedHomePage /> : <GuestHomePage />;
 }

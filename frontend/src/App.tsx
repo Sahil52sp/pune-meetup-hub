@@ -44,9 +44,9 @@ const SignupRoute = () => {
 };
 
 // Component to protect routes that require completed onboarding
+// Only applies to specific protected routes, not the homepage
 const OnboardingRequiredRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, isAuthenticated, isLoading } = useAuth();
-  const location = useLocation();
   
   if (isLoading) {
     return (
@@ -57,12 +57,9 @@ const OnboardingRequiredRoute = ({ children }: { children: React.ReactNode }) =>
   }
   
   // If authenticated but onboarding not completed, redirect to signup
-  // This makes onboarding mandatory for new signups
+  // This only applies to routes wrapped with this component
   if (isAuthenticated && user && user.onboarding_completed === false) {
-    // Don't redirect if already on signup page
-    if (location.pathname !== '/signup') {
-      return <Navigate to="/signup" replace />;
-    }
+    return <Navigate to="/signup" replace />;
   }
   
   return <>{children}</>;
@@ -85,42 +82,49 @@ const AppContent = () => {
     );
   }
 
-  // Show main app with routes - protect all routes to require completed onboarding
+  // Show main app with routes
+  // Homepage and meetups are public, other routes require onboarding completion
   return (
-    <OnboardingRequiredRoute>
-      <Box className="min-h-screen flex flex-col">
-        {!isSignupPage && <Header />}
-        <Box as="main" className="flex-1">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/signup" element={<SignupRoute />} />
-            <Route path="/meetups" element={<MeetupsPage />} />
-            <Route path="/connections" element={
-              <ProtectedRoute>
+    <Box className="min-h-screen flex flex-col">
+      {!isSignupPage && <Header />}
+      <Box as="main" className="flex-1">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signup" element={<SignupRoute />} />
+          <Route path="/meetups" element={<MeetupsPage />} />
+          <Route path="/connections" element={
+            <ProtectedRoute>
+              <OnboardingRequiredRoute>
                 <ConnectionsPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/browse" element={
-              <ProtectedRoute>
+              </OnboardingRequiredRoute>
+            </ProtectedRoute>
+          } />
+          <Route path="/browse" element={
+            <ProtectedRoute>
+              <OnboardingRequiredRoute>
                 <BrowseConnectionsPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/profile" element={
-              <ProtectedRoute>
+              </OnboardingRequiredRoute>
+            </ProtectedRoute>
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <OnboardingRequiredRoute>
                 <ProfilePage />
-              </ProtectedRoute>
-            } />
-            <Route path="/messaging" element={
-              <ProtectedRoute>
+              </OnboardingRequiredRoute>
+            </ProtectedRoute>
+          } />
+          <Route path="/messaging" element={
+            <ProtectedRoute>
+              <OnboardingRequiredRoute>
                 <MessagingPage />
-              </ProtectedRoute>
-            } />
-            <Route path="*" element={<HomePage />} />
-          </Routes>
-        </Box>
-        {!isSignupPage && <Footer />}
+              </OnboardingRequiredRoute>  
+            </ProtectedRoute>
+          } />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
       </Box>
-    </OnboardingRequiredRoute>
+      {!isSignupPage && <Footer />}
+    </Box>
   );
 };
 

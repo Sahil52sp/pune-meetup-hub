@@ -20,6 +20,9 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAuthenticated, login, logout } = useAuth();
 
+  // Only show authenticated UI if user has completed onboarding
+  const showAuthenticatedUI = isAuthenticated && user && user.onboarding_completed === true;
+
   const isActive = (path: string) => {
     return location.pathname === path;
   };
@@ -62,7 +65,7 @@ export function Header() {
               isActive("/") ? "nav-link-active" : "nav-link-inactive"
             }`}
           >
-            {isAuthenticated ? "Dashboard" : "Home"}
+            {showAuthenticatedUI ? "Dashboard" : "Home"}
           </Link>
           <Link
             to="/meetups"
@@ -73,7 +76,7 @@ export function Header() {
             Meetups
           </Link>
           
-          {!isAuthenticated && (
+          {!showAuthenticatedUI && (
             <Link
               to="/browse"
               className={`text-sm poppins-reg ${
@@ -84,7 +87,7 @@ export function Header() {
             </Link>
           )}
           
-          {isAuthenticated && (
+          {showAuthenticatedUI && (
             <>
               {/* <Link
                 to="/profile"
@@ -124,7 +127,7 @@ export function Header() {
 
         {/* Desktop Auth Section */}
         <Box className="hidden md:flex items-center space-x-3">
-          {isAuthenticated ? (
+          {showAuthenticatedUI ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -214,7 +217,7 @@ export function Header() {
                 isActive("/") ? "nav-link-active" : "nav-link-inactive"
               }`}
             >
-              {isAuthenticated ? "Dashboard" : "Home"}
+              {showAuthenticatedUI ? "Dashboard" : "Home"}
             </Link>
             <Link
               to="/meetups"
@@ -226,7 +229,7 @@ export function Header() {
               Meetups
             </Link>
             
-            {!isAuthenticated && (
+            {!showAuthenticatedUI && (
               <Link
                 to="/browse"
                 onClick={handleLinkClick}
@@ -238,7 +241,7 @@ export function Header() {
               </Link>
             )}
             
-            {isAuthenticated ? (
+            {showAuthenticatedUI ? (
               <>
                 {/* <Link
                   to="/profile"
